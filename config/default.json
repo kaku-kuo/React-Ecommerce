@@ -1,0 +1,4 @@
+{
+    "mongoURI":"mongodb+srv://alankuo:alankuo123@cluster-ecommerce.33fb2.mongodb.net/<dbname>?retryWrites=true&w=majority",
+    "jwtSecret":"secret"
+}
