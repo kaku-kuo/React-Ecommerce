@@ -3,7 +3,6 @@ const router = express.Router();
 const auth = require("../middleware/auth");
 
 
-const User = require("../models/User");
 const Product = require("../models/Product");
 
 // @route    GET api/products
@@ -21,6 +20,20 @@ router.get('/', async(req, res) => {
     
 });
 
+// @route     GET api/products
+// @desc      Get one product
+// @access    Private 
+router.get('/:id', async(req,res) => {
+
+    try {
+        const product = await Product.findById(req.params.id);
+        res.json(product);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error")
+    }
+});
+
 
 // @route    POST api/products
 // @desc     Add a new product
@@ -28,6 +41,7 @@ router.get('/', async(req, res) => {
 router.post('/', auth, async(req, res) => {
 
     const {
+        user,
         name,
         price,
         brand,
@@ -35,12 +49,14 @@ router.post('/', auth, async(req, res) => {
         image,
         description,
         countInStock,
+        reviews,
         rating,
         numReviews
     } = req.body
     
     try {
         const newProduct = new Product({
+            user,
             name,
             price,
             brand,
@@ -48,6 +64,7 @@ router.post('/', auth, async(req, res) => {
             image,
             description,
             countInStock,
+            reviews,
             rating,
             numReviews
         });
@@ -79,7 +96,7 @@ router.delete('/:id', auth, async(req, res) => {
 // @desc     Update product
 // @access   Private
 router.put('/:id', auth, async(req, res) => {
-    const {
+    const {   
         name,
         price,
         brand,
@@ -107,6 +124,25 @@ router.put('/:id', auth, async(req, res) => {
         if(!product) return res.status(404).json({ msg:"Product not found" });
 
         product = await Product.findByIdAndUpdate(req.params.id,{$set:productFields},{new:true});
+        res.json(product);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server error"); 
+    }
+});
+
+
+// @route    PUT api/products/:id
+// @desc     Update stock
+// @access   Private
+router.put('/:id/stockchange', auth, async(req, res) => {
+    const { countInStock } = req.body;
+
+    try {
+        let product = await Product.findById(req.params.id);
+        if(!product) return res.status(404).json({ msg:"Product not found" });
+     
+        product = await Product.findByIdAndUpdate(req.params.id,{countInStock:[1,6,5,4,7,8,2,5]}, {new:true});
         res.json(product);
     } catch (err) {
         console.error(err.message);
