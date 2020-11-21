@@ -17,13 +17,18 @@ const [password2, setPassword2] = useState("");
 const [orderList, setOrderList] = useState([]);
 
 useEffect(() => {
-   getOrders();
+ getOrders();
+ // eslint-disable-next-line
+},[]);
+
+useEffect(() => {
+ if(!userDe && !orders) return; 
  if(userDe && orders){
    const list = orders.filter(order => order.user === userDe._id);
    setOrderList(list);
   } 
 // eslint-disable-next-line
-},[loading,userDe]);
+},[orders,userDe]);
 
 
 

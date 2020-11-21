@@ -52,7 +52,7 @@ export const updateStock = (stock,id) => async dispatch => {
                 "Content-Type":"application/json"
            }
         }
-    
+        setLoading();
         const res = await axios.put(`/api/products/${id}`, stock, config);
         dispatch({
             type:STOCK_UPDATE,

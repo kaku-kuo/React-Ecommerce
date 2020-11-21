@@ -1,4 +1,4 @@
-import React,{ useEffect,useState } from 'react';
+import React,{ useEffect, useState } from 'react';
 import OrderItem from '../checkout/OrderItem';
 import Preloader from '../layout/Preloader';
 import { connect } from 'react-redux';
@@ -8,125 +8,100 @@ import { getProducts, updateStock } from '../actions/productActions';
 
 
 
-const Order = ({ orderDe, loading , success , userDe ,product, cleanCartItems, getOrderDe, updateOrder, updateStock,getProducts , match }) => {
-const paid = { isPaid:true };
-const delevered = { isDelivered:true };
+const Order = ({ orderDe , success , userDe ,product, cleanCartItems, getOrderDe, updateOrder, updateStock,getProducts, match }) => {
 const [deliverDay, setDeliverDay] = useState("");
-const [data, setData] = useState(null);
-const [forProduct, setForProduct] = useState(null);
+const [data, setData] = useState([]);
+const [arrIndex, setArrIndex] = useState([]);
+let num = 0;
 
+useEffect(() =>{
+ if(success){
+  cleanCartItems();   
+ };  
 
+ if(!orderDe || !product){
+  getOrderDe(match.params.id);
+  getProducts(); 
+ };
+  console.log("FIRST EFFECT");
+  // eslint-disable-next-line  
+},[])
 
 useEffect(() => {
-// Array for collect stocks and id for update
-const arr = [] 
-
-if(success){
-  cleanCartItems();   
-};  
-  
-getOrderDe(match.params.id);
-getProducts();
-
-//Set up fake deliver day
-if(orderDe){
-    orderDe.isPaid && setTimeout(() => {
-    updateOrder(match.params.id,delevered);
-   },3000) 
-
-   const date = new Date(orderDe.updatedAt);
-   const dateToAdd = 3;
-   const year = date.getFullYear();
-   const month = date.getMonth() + 1;
-   const day = date.getDate(); 
-   setDeliverDay(`${year}-${month}-${day + dateToAdd}`);
-};
-   
-// Update stocks
-if(orderDe && product){
-    orderDe.orderItems.forEach(item => 
+if(!orderDe) return;
+// Set up the index for update product stocks
+    orderDe && orderDe.orderItems.forEach(item => 
     {
       switch(item.size){
       case "07.5":
-        const forIndex0 = item.countInStock[0]-item.qty;
-        item.countInStock[0] = forIndex0;
-        arr.push(item);
-        setData(arr);
+        setArrIndex(preValue => [...preValue, item.countInStock.indexOf(item.countInStock[0])]);  
         break;    
       case "08.0":
-        const forIndex1 = item.countInStock[1]-item.qty;
-        item.countInStock[1] = forIndex1
-        arr.push(item);
-        setData(arr);
+        setArrIndex(preValue => [...preValue, item.countInStock.indexOf(item.countInStock[1])]);  
         break;    
       case "08.5":
-        arr.push({index:item.countInStock.indexOf(item.countInStock[2]), qtyForMinus:item.qty})  
-        setForProduct(arr) 
-        // const forIndex2 = item.countInStock[2]-item.qty;
-        // item.countInStock[2] = forIndex2;
-        // arr.push(item);
-        // setData(arr);       
+        setArrIndex(preValue => [...preValue, item.countInStock.indexOf(item.countInStock[2])]);  
         break;   
       case "09.0":
-        const forIndex3 = item.countInStock[3]-item.qty;
-        item.countInStock[3] = forIndex3
-        arr.push(item);
-        setData(arr);
+        setArrIndex(preValue => [...preValue, item.countInStock.indexOf(item.countInStock[3])]);  
         break;  
-      case "09.5":
-        arr.push({index:item.countInStock.indexOf(item.countInStock[4]), qtyForMinus:item.qty}) 
-        // const forIndex4 = item.countInStock[4]-item.qty;
-        // item.countInStock[4] = forIndex4;
-        // arr.push(item);
-        // setData(arr);
+      case "09.5": 
+        setArrIndex(preValue => [...preValue, item.countInStock.indexOf(item.countInStock[4])]);
         break;
       case "10.0":
-        arr.push({index:item.countInStock.indexOf(item.countInStock[5]), qtyForMinus:item.qty}) 
-        // const forIndex5 = item.countInStock[5]-item.qty;
-        // item.countInStock[5] = forIndex5;
-        // arr.push(item);
-        // setData(arr);
+        setArrIndex(preValue => [...preValue, item.countInStock.indexOf(item.countInStock[5])]);
         break;
       case "10.5":
-        const forIndex6 = item.countInStock[6]-item.qty;
-        item.countInStock[6] = forIndex6;
-        arr.push(item);
-        setData(arr);
+        setArrIndex(preValue => [...preValue, item.countInStock.indexOf(item.countInStock[6])]);         
         break;
       case "11.0":
-        const forIndex7 = item.countInStock[7]-item.qty;
-        item.countInStock[7] = forIndex7;
-        arr.push(item);
-        setData(arr);
+        setArrIndex(preValue => [...preValue, item.countInStock.indexOf(item.countInStock[7])]);  
         break;       
       default:
         console.log(item);
     };
   });
-  
-
-  let num = 0; 
-  product.products && product.products.forEach(i => {
-   
-  //  console.log(i.countInStock[(arr[num++].index)]-(orderDe.orderItems[num++].qty))
-  console.log(i.countInStock)
-  });
- 
-
-
-};
-
-
+  console.log("SECOND EFFECT");
 // eslint-disable-next-line  
-},[loading]);
+},[orderDe]);
+
+
+useEffect(() => {
+ if(!product) return; 
+ // Looking fot specific stocks value by index, and set up for update
+ product.products && orderDe && product.products.forEach(p => {
+    if(orderDe.orderItems.length > num &&  p._id === orderDe.orderItems[num].product){
+      p.countInStock[arrIndex[num]] = p.countInStock[arrIndex[num]] - orderDe.orderItems[num].qty;  
+      num++
+      setData(preValue => [...preValue, {countInStock:p.countInStock, id:p._id}]);  
+      console.log("products forEach loop");  
+     }   
+  });
+console.log("THIRD EFFECT");
+// eslint-disable-next-line  
+},[arrIndex,product]);
 
 
 
+console.log(`conponent re-render`)
 const handleSubmit = (e) => { 
-    e.preventDefault();
-    updateOrder(match.params.id,{isPaid:true,orderItems:data});
-    // Update stocks in DB
-    data.forEach(item => updateStock({countInStock:item.countInStock},item.product));  
+      e.preventDefault();
+       // Update pay status
+       updateOrder(match.params.id,{isPaid:true});
+       // Actuall update stocks in DB
+       data.forEach(item => updateStock({countInStock:item.countInStock},item.id)); 
+    
+       // Set up fake delivery date 
+       setTimeout(() => {
+        updateOrder(match.params.id,{isDelivered:true});
+       },3000) 
+  
+       const date = new Date(orderDe.updatedAt);
+       const dateToAdd = 3;
+       const year = date.getFullYear();
+       const month = date.getMonth() + 1;
+       const day = date.getDate(); 
+       setDeliverDay(`${year}-${month}-${day + dateToAdd}`);  
 };    
 
 
@@ -148,7 +123,7 @@ const handleSubmit = (e) => {
            orderDe.isPaid ?
            <div className="alert alert-warning" role="alert">In Transit</div> 
            :
-           <div className="alert alert-warning" role="alert">Order Processing</div>   
+           <div className="alert alert-warning" role="alert">Order processing</div>   
            }
            <hr/>
           <div className="payment">

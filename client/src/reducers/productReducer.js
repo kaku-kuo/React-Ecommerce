@@ -18,13 +18,15 @@ export default(state = initialState, action) => {
         case GET_PRODUCTS:
           return {
             ...state,
-            products:action.payload  
+            products:action.payload,
+            loading:true  
         };
         case STOCK_UPDATE:
         case GET_PRODUCT:
           return {
             ...state,
-            productDe:action.payload  
+            productDe:action.payload,
+            loading:true  
         };
         case SET_LOADING:
           return {
