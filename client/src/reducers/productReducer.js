@@ -1,7 +1,9 @@
 import {
     GET_PRODUCTS,
     GET_PRODUCT,
-    STOCK_UPDATE,
+    REMOVE_PRODUCT,
+    UPDATE_PRODUCT_SUCCESS,
+    UPDATE_PRODUCT_FAIL,
     PRODUCTS_ERROR,
     SET_LOADING
 } from '../components/actions/types';
@@ -21,18 +23,25 @@ export default(state = initialState, action) => {
             products:action.payload,
             loading:true  
         };
-        case STOCK_UPDATE:
+        case UPDATE_PRODUCT_SUCCESS:
         case GET_PRODUCT:
           return {
             ...state,
             productDe:action.payload,
             loading:true  
         };
+        case REMOVE_PRODUCT:
+           return {
+            ...state,
+            products:state.products.filter(product => product._id !== action.payload),
+            loading:true
+        };
         case SET_LOADING:
           return {
             ...state,
             loading:true
         };
+        case UPDATE_PRODUCT_FAIL:
         case PRODUCTS_ERROR:
           return {
              ...state,

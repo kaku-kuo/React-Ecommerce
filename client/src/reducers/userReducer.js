@@ -32,7 +32,7 @@ export default(state = initialState, action) => {
         case USER_LOADED:
         case USER_UPDATED:    
         localStorage.setItem("name",action.payload.name);    
-        localStorage.setItem("email",action.payload.email);    
+        localStorage.setItem("email",action.payload.email);        
            return {
               ...state,
               isAuthenticated:true,

@@ -4,11 +4,11 @@ import Preloader from '../layout/Preloader';
 import { connect } from 'react-redux';
 import { cleanCartItems } from '../actions/cartActions';
 import { getOrderDe, updateOrder } from '../actions/orderActions';
-import { getProducts, updateStock } from '../actions/productActions';
+import { getProducts, updateProduct } from '../actions/productActions';
 
 
 
-const Order = ({ orderDe , success , userDe ,product, cleanCartItems, getOrderDe, updateOrder, updateStock,getProducts, match }) => {
+const Order = ({ orderDe , success , userDe ,product, cleanCartItems, getOrderDe, updateOrder, updateProduct ,getProducts, match }) => {
 const [deliverDay, setDeliverDay] = useState("");
 const [data, setData] = useState([]);
 const [arrIndex, setArrIndex] = useState([]);
@@ -89,7 +89,7 @@ const handleSubmit = (e) => {
        // Update pay status
        updateOrder(match.params.id,{isPaid:true});
        // Actuall update stocks in DB
-       data.forEach(item => updateStock({countInStock:item.countInStock},item.id)); 
+       data.forEach(item => updateProduct({countInStock:item.countInStock},item.id)); 
     
        // Set up fake delivery date 
        setTimeout(() => {
@@ -197,4 +197,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect( mapStateToProps , { cleanCartItems, getOrderDe, updateOrder, updateStock, getProducts })(Order);
+export default connect( mapStateToProps , { cleanCartItems, getOrderDe, updateOrder, updateProduct, getProducts })(Order);

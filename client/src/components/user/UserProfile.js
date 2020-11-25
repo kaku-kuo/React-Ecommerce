@@ -83,7 +83,10 @@ const handleSubmit = e => {
             </form> 
 
             <div className="order-list">
-             <h3 className="shipping-title">MY ORDERS</h3>   
+             <h3 className="shipping-title">MY ORDERS</h3>
+             {orderList.length === 0 ?
+              <h4>NO ORDERS</h4> 
+              : 
              <table className="table table-bordered table-striped">
               <thead>
                <tr>
@@ -99,6 +102,7 @@ const handleSubmit = e => {
                {orderList.map(order => <OrderListItems orderItem={order} key={order._id}/>)}
               </tbody>
              </table>
+             }
             </div>
         </div>
       :

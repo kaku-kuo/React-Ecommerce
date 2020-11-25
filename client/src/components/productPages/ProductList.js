@@ -10,14 +10,10 @@ const ProductList = ({ product:{ products,loading}, getProducts }) => {
   useEffect(() => {
      getProducts();
      //eslint-disable-next-line      
-  },[])
-
-
-  if(loading === true || products === null){
-       return <Preloader/>
-  }
+  },[]);
 
     return (
+       loading && products ?
         <div className="wholesection">  
           <h5>Refine Results</h5>
           <div className="filterandproduct">
@@ -33,6 +29,8 @@ const ProductList = ({ product:{ products,loading}, getProducts }) => {
             </div> 
           </div>        
         </div>
+        :
+        <Preloader/>
     )
 }
 

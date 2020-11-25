@@ -19,6 +19,9 @@ import Shipping from './components/checkout/Shipping';
 import Payment from './components/checkout/Payment';
 import PlaceOrder from './components/checkout/PlaceOrder';
 import Order from './components/order/Order';
+import AdminPage from './components/admin/AdminPage';
+import CreateProduct from './components/admin/CreateProduct';
+import UpdatePorduct from './components/admin/UpdateProduct';
 import Footer from './components/layout/Footer';
 import PrivateRoute from './components/routing/PrivateRoute';
 import Alert from './components/layout/Alert';
@@ -49,6 +52,9 @@ const App = () => {
       <PrivateRoute exact path="/payment" component={Payment}/>
       <PrivateRoute exact path="/placeorder" component={PlaceOrder}/>
       <PrivateRoute exact path="/order/:id" component={Order}/>
+      <Route exact path="/admin" component={AdminPage}/>
+      <Route exact path="/admin/createproduct"  component={CreateProduct}/>
+      <Route exact path="/admin/updateproduct/:id" component={UpdatePorduct}/>
      </Switch>   
       <AddProductModal/>
     </div>

@@ -45,13 +45,9 @@ router.post('/', auth, async(req, res) => {
         name,
         price,
         brand,
-        category,
         image,
         description,
-        countInStock,
-        reviews,
-        rating,
-        numReviews
+        countInStock
     } = req.body
     
     try {
@@ -60,13 +56,9 @@ router.post('/', auth, async(req, res) => {
             name,
             price,
             brand,
-            category,
             image,
             description,
             countInStock,
-            reviews,
-            rating,
-            numReviews
         });
         const product = await newProduct.save();
         res.json(product);

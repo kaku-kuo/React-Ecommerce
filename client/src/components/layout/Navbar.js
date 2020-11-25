@@ -5,9 +5,10 @@ import { loadUser,userLogout } from '../actions/userActions';
 import { setAlert } from '../actions/alertActions';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Preloader from '../layout/Preloader';
 
 
-const Navbar = ({ user:{ token },cartItems, loadUser, userLogout, setAlert }) => {
+const Navbar = ({ user:{ token, userDe },cartItems, loadUser, userLogout, setAlert }) => {
 
 //Keep user login 
 useEffect(() => {
@@ -22,6 +23,7 @@ const handleLogout = () => {
    userLogout();
    setAlert("Logout successfully!", "success");
 };
+
     return (
        <div>   
         <nav className="navbar navbar-light">
@@ -40,19 +42,26 @@ const handleLogout = () => {
             }            
            </Link>   
 
-          {localStorage.name && localStorage.token? 
+          {localStorage.name && localStorage.token ? 
           <div className="signIn dropdown d-inline-block">
            <Link className="nav-link dropdown-toggle" style={{color:"black",padding:0}} data-toggle="dropdown" to="#" role="button" aria-haspopup="true" aria-expanded="false">
             {localStorage.name}
-           </Link>
-           <div className="dropdown-menu"> 
-            <a className="dropdown-item" href="/profile">Profile</a>
-            <Link className="dropdown-item" to="#" onClick={handleLogout}>Log out</Link>
-           </div> 
-          </div>
+           </Link>                 
+           <div className="dropdown-menu">
+           {userDe ?  
+            <div> 
+             <a className="dropdown-item" href="/profile">Profile</a>
+             {userDe.isAdmin && <Link className="dropdown-item" to="/admin">Admin</Link>}
+             <Link className="dropdown-item" to="#" onClick={handleLogout}>Log out</Link>
+            </div>
+             :
+            <Preloader/>
+            }
+           </div>
+          </div>       
           :
-          <Link className="signIn" to="/login">Login</Link>}
-
+          <Link className="signIn" to="/login">Login</Link>
+          }
           </div>
         </nav>
 

@@ -6,7 +6,6 @@ import {
   GET_ORDERS,
   UPDATE_ORDER_SUCCESS,
   UPDATE_ORDER_FAIL,
-  STOCK_UPDATE,
   ORDER_ERROR,
   CREATE_NEW_ORDER_FAIL
 } from './types';
@@ -89,27 +88,6 @@ export const updateOrder = (id,data) => async dispatch => {
     } catch (err) {
         dispatch({
             type:UPDATE_ORDER_FAIL,
-            payload:err.response
-        });
-    }
-}
-
-// Update stock
-export const updateStock = (data,id) => async dispatch => {
-    try {
-        const config = {
-            headers:{
-                "Content-Type":"application/json"
-        }
-    }
-        const res = await axios.put(`api/products/${id}`, data, config);
-        dispatch({
-            type:STOCK_UPDATE,
-            payload:res.data
-        });
-    } catch (err) {
-        dispatch({
-            type:ORDER_ERROR,
             payload:err.response
         });
     }

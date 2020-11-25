@@ -604,3 +604,31 @@ td:last-child{
 .last-td a{
   text-decoration-line: none;
 }
+
+table .id{
+  width: 300px;
+}
+
+table .name{
+  width: 340px;
+}
+
+table .price,.brand{
+  width: 100px;
+}
+
+table .last{
+  width: 170px;
+}
+
+.product-edit-delete-icon{
+  font-size: 23px;
+  margin: 0 5px;
+  color: black;
+  cursor: pointer;
+}
+
+.stocks{
+  width: 50px;
+  display: inline-block;
+}

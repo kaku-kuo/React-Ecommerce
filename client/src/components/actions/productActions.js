@@ -2,7 +2,9 @@ import axios from 'axios';
 import {
     GET_PRODUCTS,
     GET_PRODUCT,
-    STOCK_UPDATE,
+    REMOVE_PRODUCT,
+    UPDATE_PRODUCT_SUCCESS,
+    UPDATE_PRODUCT_FAIL,
     PRODUCTS_ERROR,
     SET_LOADING
 } from '../actions/types';
@@ -43,8 +45,8 @@ export const getProductDe = id => async dispatch => {
     }
 }
 
-// Update stocks
-export const updateStock = (stock,id) => async dispatch => {
+// Update product
+export const updateProduct = (data,id) => async dispatch => {
 
     try {
         const config = {
@@ -53,19 +55,39 @@ export const updateStock = (stock,id) => async dispatch => {
            }
         }
         setLoading();
-        const res = await axios.put(`/api/products/${id}`, stock, config);
+        const res = await axios.put(`/api/products/${id}`, data, config);
         dispatch({
-            type:STOCK_UPDATE,
+            type:UPDATE_PRODUCT_SUCCESS,
             payload:res.data
         });
     } catch (err) {
         dispatch({
-            type:PRODUCTS_ERROR,
+            type:UPDATE_PRODUCT_FAIL,
             payload:err.response
         });
     }
 
 }
+
+
+// Remove product
+export const removeProduct = id => async dispatch => {
+    try {
+       axios.delete(`/api/products/${id}`);
+       dispatch({
+        type:REMOVE_PRODUCT,
+        payload:id
+     });  
+    } catch (err) {
+       dispatch({
+           type:PRODUCTS_ERROR,
+           payload:err.respnose
+    }); 
+    }
+    
+};
+
+
 
 export const setLoading = () => {
     return {
