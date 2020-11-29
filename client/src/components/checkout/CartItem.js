@@ -177,7 +177,7 @@ const handleQty = e => {
 }
 
 CartItem.propTypes = {
-   cartItem:PropTypes.object.isRequired,
+   cartItem:PropTypes.object,
    removeItemFromCart:PropTypes.func.isRequired,
    editItemFromCart:PropTypes.func.isRequired
 }

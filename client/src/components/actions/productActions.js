@@ -5,6 +5,8 @@ import {
     REMOVE_PRODUCT,
     UPDATE_PRODUCT_SUCCESS,
     UPDATE_PRODUCT_FAIL,
+    ADD_REVIEW_SUCCESS,
+    ADD_REVIEW_FAIL,
     PRODUCTS_ERROR,
     SET_LOADING
 } from '../actions/types';
@@ -85,6 +87,29 @@ export const removeProduct = id => async dispatch => {
     }); 
     }
     
+};
+
+
+export const addReview = (formData,productId) => async dispatch => {
+     try {
+        const config = {
+            headers:{
+                "Content-Type":"application/json"
+           }
+        };
+        setLoading();
+        const res = await axios.post(`/api/products/${productId}/reviews`, formData, config);
+        dispatch({
+            type:ADD_REVIEW_SUCCESS,
+            payload:res.data
+        });
+     } catch (err) {
+        dispatch({
+            type:ADD_REVIEW_FAIL,
+            payload:err.response
+        }); 
+     } 
+
 };
 
 

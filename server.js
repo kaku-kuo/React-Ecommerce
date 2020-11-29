@@ -1,8 +1,14 @@
 const express = require("express");
 const path = require("path");
+const morgan = require("morgan");
 const connectDB = require("./config/db");
 
 const app = express();
+
+if(process.env.NODE_ENV === 'development'){
+    app.use(morgan('dev'))
+};
+
 
 // Connect Database
 connectDB();

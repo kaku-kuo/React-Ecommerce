@@ -1,4 +1,5 @@
 import React,{ useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getProducts } from '../actions/productActions';
@@ -13,9 +14,7 @@ useEffect(() => {
 getProducts();
 if(newProduct){
  cleanNewProduct();  
- console.log("new product clean");
 };
-console.log("useEffect");
 // eslint-disable-next-line 
 },[]);
     return (
@@ -52,6 +51,12 @@ console.log("useEffect");
     )
 }
 
+AdminPage.propTypes = {
+   products:PropTypes.array,
+   newProduct:PropTypes.object,
+   getProducts:PropTypes.func.isRequired,
+   cleanNewProduct:PropTypes.func.isRequired
+};
 
 const mapStateToProps = state => ({
    products:state.product.products,

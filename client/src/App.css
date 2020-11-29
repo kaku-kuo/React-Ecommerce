@@ -290,8 +290,29 @@ html,body{
   display: flex;
 }
 
+.overall-rating{
+  font-size: 20px;
+}
+
+.rating-star{
+  color:#cccccc;
+  cursor: pointer;
+}
+
+
+.rating-star-hover{
+  color:orange;
+}
+
 .star{
   color: orange;
+}
+.nostar{
+  color:#cccccc;
+}
+
+.star-group span{
+  cursor: pointer;
 }
 
 .reviewscore{
@@ -299,7 +320,14 @@ html,body{
 }
 
 .writereview{
+  color:#2383fa;
   margin-left: 5px;
+  cursor: pointer;
+}
+
+.writereview:hover{
+  color: #1a63bd;
+  text-decoration: underline;
 }
 
 .detailsprice{
@@ -631,4 +659,14 @@ table .last{
 .stocks{
   width: 50px;
   display: inline-block;
+}
+
+.reviews{
+  margin-top: 20px;
+  border:1px solid lightgrey;
+  width: 600px;
+}
+
+.review-details{
+  margin: 20px 15px;
 }

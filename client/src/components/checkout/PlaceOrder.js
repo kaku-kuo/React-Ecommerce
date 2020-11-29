@@ -130,8 +130,8 @@ const SubmitOrder = e => {
 }
 
 PlaceOrder.propTypes = {
-  cart:PropTypes.object.isRequired,
-  order:PropTypes.object.isRequired,
+  cart:PropTypes.object,
+  order:PropTypes.object,
   createNewOrder:PropTypes.func.isRequired
 };
 

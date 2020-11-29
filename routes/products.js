@@ -124,22 +124,42 @@ router.put('/:id', auth, async(req, res) => {
 });
 
 
-// @route    PUT api/products/:id
-// @desc     Update stock
+// @route    POST api/products/:id/reviews
+// @desc     Add new review to product
 // @access   Private
-router.put('/:id/stockchange', auth, async(req, res) => {
-    const { countInStock } = req.body;
+router.post('/:id/reviews',auth, async(req, res) => {
+     const {
+         comment,
+         rating
+     } = req.body;
 
-    try {
-        let product = await Product.findById(req.params.id);
-        if(!product) return res.status(404).json({ msg:"Product not found" });
-     
-        product = await Product.findByIdAndUpdate(req.params.id,{countInStock:[1,6,5,4,7,8,2,5]}, {new:true});
-        res.json(product);
-    } catch (err) {
+     try {
+         const product = await Product.findById(req.params.id);
+         if(product){
+            const alreadyReviewed = product.reviews.find(review => review.user.toString() === req.user.id.toString());
+            if(alreadyReviewed){
+                res.status(400);
+                throw new Error('Product already reviewed');
+            } 
+
+            const review = {
+                name:req.user.name,
+                rating:Number(rating),
+                comment,
+                user:req.user.id
+            }
+            product.reviews.push(review);
+            product.numReviews = product.reviews.length;
+            product.rating = product.reviews.reduce((acc, item) => item.rating + acc, 0) / product.reviews.length;
+            
+            await product.save();
+            res.status(201).json({ msg:"Review added"});
+         }
+     } catch (err) { 
         console.error(err.message);
-        res.status(500).send("Server error"); 
-    }
+        res.status(500).send(err.message); 
+     }
 });
+
 
 module.exports = router;

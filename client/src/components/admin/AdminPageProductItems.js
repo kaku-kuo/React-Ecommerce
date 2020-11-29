@@ -1,4 +1,5 @@
 import React,{ Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -25,5 +26,9 @@ const AdminPageProductItems = ({ productItem, removeProduct }) => {
     )
 }
 
+AdminPageProductItems.propTypes = {
+   productItem:PropTypes.object,
+   removeProduct:PropTypes.func.isRequired
+};
 
 export default connect(null, {removeProduct })(AdminPageProductItems);

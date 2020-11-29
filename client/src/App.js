@@ -26,6 +26,7 @@ import Footer from './components/layout/Footer';
 import PrivateRoute from './components/routing/PrivateRoute';
 import Alert from './components/layout/Alert';
 import AddProductModal from './components/productPages/AddProductModal';
+import AddReviewModal from './components/productPages/AddReviewModal';
 
 
 
@@ -52,11 +53,12 @@ const App = () => {
       <PrivateRoute exact path="/payment" component={Payment}/>
       <PrivateRoute exact path="/placeorder" component={PlaceOrder}/>
       <PrivateRoute exact path="/order/:id" component={Order}/>
-      <Route exact path="/admin" component={AdminPage}/>
-      <Route exact path="/admin/createproduct"  component={CreateProduct}/>
-      <Route exact path="/admin/updateproduct/:id" component={UpdatePorduct}/>
+      <PrivateRoute exact path="/admin" component={AdminPage}/>
+      <PrivateRoute exact path="/admin/createproduct"  component={CreateProduct}/>
+      <PrivateRoute exact path="/admin/updateproduct/:id" component={UpdatePorduct}/>
      </Switch>   
       <AddProductModal/>
+      <AddReviewModal/>
     </div>
     <Footer/>   
    </BrowserRouter>

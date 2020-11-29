@@ -52,7 +52,8 @@ const handleSubmitAddress = e => {
 }
 
 Shipping.propTypes = {
-   shippingAddress:PropTypes.object.isRequired
+   shippingAddress:PropTypes.object,
+   saveShippingAddress:PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({

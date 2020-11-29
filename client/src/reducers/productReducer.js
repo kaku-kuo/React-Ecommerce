@@ -4,6 +4,8 @@ import {
     REMOVE_PRODUCT,
     UPDATE_PRODUCT_SUCCESS,
     UPDATE_PRODUCT_FAIL,
+    ADD_REVIEW_SUCCESS,
+    ADD_REVIEW_FAIL,
     PRODUCTS_ERROR,
     SET_LOADING
 } from '../components/actions/types';
@@ -11,6 +13,7 @@ import {
 const initialState = {
     products:null,
     productDe:null,
+    reviewAdded:null,
     loading:false,
     error:null
 };
@@ -36,11 +39,18 @@ export default(state = initialState, action) => {
             products:state.products.filter(product => product._id !== action.payload),
             loading:true
         };
+        case ADD_REVIEW_SUCCESS:
+          return {
+            ...state,
+            reviewAdded:action.payload,
+            loading:true
+        };
         case SET_LOADING:
           return {
             ...state,
             loading:true
         };
+        case ADD_REVIEW_FAIL:
         case UPDATE_PRODUCT_FAIL:
         case PRODUCTS_ERROR:
           return {

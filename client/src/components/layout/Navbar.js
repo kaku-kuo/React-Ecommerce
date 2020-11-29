@@ -48,15 +48,14 @@ const handleLogout = () => {
             {localStorage.name}
            </Link>                 
            <div className="dropdown-menu">
-           {userDe ?  
+           {userDe ? 
             <div> 
-             <a className="dropdown-item" href="/profile">Profile</a>
+            <a className="dropdown-item" href="/profile">Profile</a>
              {userDe.isAdmin && <Link className="dropdown-item" to="/admin">Admin</Link>}
              <Link className="dropdown-item" to="#" onClick={handleLogout}>Log out</Link>
             </div>
-             :
-            <Preloader/>
-            }
+             :  
+            <Preloader/>}
            </div>
           </div>       
           :

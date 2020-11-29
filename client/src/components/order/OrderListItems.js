@@ -1,4 +1,5 @@
 import React,{ Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
@@ -30,5 +31,9 @@ const OrderListItems = ({ orderItem }) => {
         </Fragment>
     )
 }
+
+OrderListItems.propTypes = {
+   orderItem:PropTypes.object.isRequired
+};
 
 export default OrderListItems;

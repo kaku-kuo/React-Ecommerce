@@ -1,6 +1,8 @@
 import React,{ useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createNewProduct } from '../actions/adminActions';
+import { setAlert } from '../actions/alertActions';
 import axios from 'axios';
 import Preloader from '../layout/Preloader';
 
@@ -25,7 +27,7 @@ const [stocks, setStocks] = useState({
 
 useEffect(() => {
 if(!newProduct) return;
-console.log("create product effect")
+setAlert("New product been created!", "success");
 history.push('/admin');
 // eslint-disable-next-line
 },[newProduct])
@@ -79,6 +81,7 @@ const handleSubmit = e => {
         stocks.index7,
     ]
   });
+  window.scrollTo(0,0);
 };
 
 
@@ -140,6 +143,12 @@ const handleSubmit = e => {
     )
 }
 
+
+CreateProduct.propTypes = {
+   userDe:PropTypes.object,
+   admin:PropTypes.object,
+   createNewProduct:PropTypes.func.isRequired
+};
 
 const mapStateToProps = state => ({
    userDe:state.user.userDe,

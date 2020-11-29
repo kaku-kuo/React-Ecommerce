@@ -69,8 +69,8 @@ const handleSubmit = e => {
 
 
 Login.propTypes = {
-    user:PropTypes.object.isRequired,
-    cartItems:PropTypes.array.isRequired,
+    user:PropTypes.object,
+    cartItems:PropTypes.array,
     userLogin:PropTypes.func.isRequired,
     setAlert:PropTypes.func.isRequired,
     clearError:PropTypes.func.isRequired

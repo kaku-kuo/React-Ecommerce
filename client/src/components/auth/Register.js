@@ -72,7 +72,7 @@ const handleSubmit = e => {
 }
 
 Register.propTypes = {
-    user:PropTypes.object.isRequired,
+    user:PropTypes.object,
     userRegister:PropTypes.func.isRequired,
     setAlert:PropTypes.func.isRequired,
     clearError:PropTypes.func.isRequired

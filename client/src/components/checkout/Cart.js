@@ -62,7 +62,7 @@ setTotalPrice(t.toLocaleString())
 }
 
 Cart.propTypes = {
-   cartItems:PropTypes.array.isRequired
+   cartItems:PropTypes.array
 }
 
 

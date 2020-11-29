@@ -1,4 +1,5 @@
 import React,{ useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import OrderItem from '../checkout/OrderItem';
 import Preloader from '../layout/Preloader';
 import { connect } from 'react-redux';
@@ -187,6 +188,18 @@ const handleSubmit = (e) => {
     )
 }
 
+Order.propTypes = {
+  orderDe:PropTypes.object,
+  success:PropTypes.bool,
+  loading:PropTypes.bool,
+  userDe:PropTypes.object,
+  product:PropTypes.object,
+  cleanCartItems:PropTypes.func.isRequired,
+  getOrderDe:PropTypes.func.isRequired,
+  updateOrder:PropTypes.func.isRequired,
+  updateProduct:PropTypes.func.isRequired,
+  getProducts:PropTypes.func.isRequired
+};
 
 const mapStateToProps = state => ({
    orderDe:state.order.orderDe,

@@ -111,6 +111,9 @@ const handleSubmit = e => {
 }
 
 UserProfile.propTypes = {
+  userDe:PropTypes.object,
+  orders:PropTypes.array,
+  loading:PropTypes.bool,
   userUpdate:PropTypes.func.isRequired,
   userLogout:PropTypes.func.isRequired,
   getOrders:PropTypes.func.isRequired,
