@@ -30,9 +30,10 @@ import AddReviewModal from './components/productPages/AddReviewModal';
 
 
 
-library.add(far,fab,fas);
+library.add(far, fab, fas);
 
 const App = () => {
+ 
   return (
   <Provider store={store}> 
    <BrowserRouter> 

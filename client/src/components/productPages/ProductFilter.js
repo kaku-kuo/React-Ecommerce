@@ -3,120 +3,53 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 const ProductFilter = () => {
-
-const [brand, setBrand] = useState(false);
-const [color, setColor] = useState(false);
+const [size, setSize] = useState(false);
 const [price, setPrice] = useState(false);
 
 
 
-//Show and hide refine button
-const showBrand = () => {
-    if(!brand){
-        setBrand(true);
-    }else{
-        setBrand(false);
-    }
-};
-
-const showColor = () => {
-    if(!color){
-        setColor(true);
-    }else{
-        setColor(false);
-    }
-};
-
-const showPrice = () => {
-    if(!price){
-        setPrice(true);
-    }else{
-        setPrice(false);
-    }
-};
-
 const handleCheck = e => {
 console.log(e.target.name,e.target.checked)
-}
+};
     return (
-        <div >                    
+        <div className="col-sm-2">                    
           <ul className="filter">    
-
-           <div className="brand" onClick={showBrand}>
-            {brand === false ? 
-            <li>
-               BRAND
-               {brand === false && <FontAwesomeIcon className="plus" icon={['fas', 'plus']}/>}                           
-            </li> 
-            :
-             <li>
-               BRAND
-               {brand === true && <FontAwesomeIcon  className="minus" icon={['fas', 'minus']}/>}            
-             </li>}   
-            </div>            
-            {brand === true && 
-            <div>
-            <div className="filteritem">
-               <label className="checkboxcontainer">
-                <input type="checkbox" name="nike" onChange={handleCheck}/>NIKE
-                <span className="checkmark"/>
-               </label>                     
-            </div>       
-            <div className="filteritem">
-            <label className="checkboxcontainer">
-                <input type="checkbox" name="adidas" onChange={handleCheck}/>ADIDAS
-                <span className="checkmark"/>
-            </label>             
-            </div>
-            </div>}
             
-            <div className="color" onClick={showColor}>
-            {color === false ? 
-            <li>
-               COLOR
-               {color === false && <FontAwesomeIcon className="plus" icon={['fas', 'plus']}/>}                           
-            </li> 
-            :
-             <li>
-               COLOR
-               {color === true && <FontAwesomeIcon  className="minus" icon={['fas', 'minus']}/>}            
-             </li>}   
-            </div>            
-            {color === true && 
+          <ul className="size p-0" onClick={() => !size ? setSize(true):setSize(false)}>
+           <li>
+            SIZE
+            <FontAwesomeIcon className={size ? "minus":"plus"} icon={size ? ['fas', 'minus']:['fas', 'plus']}/>
+           </li>
+          </ul>          
+            {size ? 
             <div>
-            <div className="filteritem">
+             <div className="filteritem">
                <label className="checkboxcontainer">
                 <input type="checkbox" name="white" onChange={handleCheck}/>WHITE
                 <span className="checkmark"/>
                </label>                     
-            </div>       
-            <div className="filteritem">
-            <label className="checkboxcontainer">
+             </div>       
+             <div className="filteritem">
+              <label className="checkboxcontainer">
                 <input type="checkbox" name="black" onChange={handleCheck}/>BLACK
                 <span className="checkmark"/>
-            </label>             
-            </div>
-            <div className="filteritem">
-            <label className="checkboxcontainer">
+              </label>             
+             </div>
+             <div className="filteritem">
+              <label className="checkboxcontainer">
                 <input type="checkbox" name="grey" onChange={handleCheck}/>GREY
                 <span className="checkmark"/>
-            </label>             
-            </div>
-            </div>}
+              </label>             
+             </div>
+            </div>:null}
 
-            <div className="price" onClick={showPrice}>
-            {price === false ? 
-            <li>
-               PRICE
-               {price === false && <FontAwesomeIcon className="plus" icon={['fas', 'plus']}/>}                           
-            </li> 
-            :
+            <ul className="price p-0" onClick={() => !price ? setPrice(true):setPrice(false)}>
              <li>
-               PRICE
-               {price === true && <FontAwesomeIcon  className="minus" icon={['fas', 'minus']}/>}            
-             </li>}   
-            </div>            
-            {price === true && 
+              PRICE
+              <FontAwesomeIcon className={price ? "minus":"plus"} icon={price ? ['fas', 'minus']:['fas', 'plus']}/>
+             </li>
+            </ul>            
+            {price ?
             <div>
             <div className="filteritem">
                <label className="checkboxcontainer">
@@ -130,7 +63,7 @@ console.log(e.target.name,e.target.checked)
                 <span className="checkmark"/>
             </label>             
             </div>
-            </div>} 
+            </div>:null} 
           </ul> 
         </div>
     )

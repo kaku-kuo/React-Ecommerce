@@ -7,7 +7,8 @@ import {
     ADD_REVIEW_SUCCESS,
     ADD_REVIEW_FAIL,
     PRODUCTS_ERROR,
-    SET_LOADING
+    SET_LOADING,
+    CLEAR_REVIEW_ERROR
 } from '../components/actions/types';
 
 const initialState = {
@@ -56,6 +57,12 @@ export default(state = initialState, action) => {
           return {
              ...state,
              error:action.payload 
+        };
+        case CLEAR_REVIEW_ERROR:
+          return {
+            ...state,
+            reviewAdded:null,
+            error:null           
         }; 
         default:
           return state;

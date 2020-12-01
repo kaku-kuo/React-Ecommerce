@@ -1,31 +1,32 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ProductRating from './ProductRating';
 
-const ProductItem = ({product}) => {
-    return (
-        <div>
-        <Link to={`/productlist/${product._id}`}>
-         <div className="card">
-          <img className="productimg" src={product.image} alt="productimg"/>  
-          <div className="productmame">
-            {product.name}
-          </div>
-          <div className="reviewgroup">
-           <div className="stars">   
-            <span><FontAwesomeIcon className="star" icon={['fas', 'star']}/></span>  
-            <span><FontAwesomeIcon className="star" icon={['fas', 'star']}/></span>  
-            <span><FontAwesomeIcon className="star" icon={['fas', 'star']}/></span>  
-            <span><FontAwesomeIcon className="star" icon={['fas', 'star']}/></span>  
-            <span><FontAwesomeIcon className="star" icon={['fas', 'star']}/></span>
-            <span className="reviewscore">5.0</span> 
-           </div>                                
-          </div>  
-            <span className="productprice">${product.price}</span>
+const ProductItem = ({ product }) => {
+
+
+    return (  
+    
+         <div className="col-sm-3 mb-4">
+          <div className="each-product">
+          <Link to={`/productlist/${product._id}`} style={{color:"black",textDecoration:"none"}}>
+           <img className="productimg" src={product.image} alt="productimg"/>  
+            <div className="card-content" style={{padding:"15px"}}>
+            <div className="productmame">
+             {product.name}
+            </div>      
+            <div className="stars">   
+             <ProductRating rating={product.rating}/>
+             <span className="reviewscore">{product.rating === 0 ? 0 : product.rating}</span>                               
+            </div>  
+            <span className="productprice">
+             ${product.price}
+            </span>
+           </div>
+          </Link>  
          </div> 
-        </Link>
-        </div>
-      
+         </div> 
+     
     )
 }
 

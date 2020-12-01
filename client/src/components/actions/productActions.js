@@ -8,7 +8,8 @@ import {
     ADD_REVIEW_SUCCESS,
     ADD_REVIEW_FAIL,
     PRODUCTS_ERROR,
-    SET_LOADING
+    SET_LOADING,
+    CLEAR_REVIEW_ERROR
 } from '../actions/types';
 
 
@@ -90,7 +91,7 @@ export const removeProduct = id => async dispatch => {
 };
 
 
-export const addReview = (formData,productId) => async dispatch => {
+export const addReview = (productId, formData) => async dispatch => {
      try {
         const config = {
             headers:{
@@ -101,18 +102,23 @@ export const addReview = (formData,productId) => async dispatch => {
         const res = await axios.post(`/api/products/${productId}/reviews`, formData, config);
         dispatch({
             type:ADD_REVIEW_SUCCESS,
-            payload:res.data
+            payload:res.data.msg
         });
      } catch (err) {
         dispatch({
             type:ADD_REVIEW_FAIL,
-            payload:err.response
+            payload:err.response.data
         }); 
      } 
 
 };
 
 
+export const clearErrorReview = () => dispatch => {
+     dispatch({
+         type:CLEAR_REVIEW_ERROR
+     });
+};
 
 export const setLoading = () => {
     return {

@@ -1,96 +1,112 @@
 import React,{ useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { connect } from 'react-redux';
+import Rating from '@material-ui/lab/Rating';
+import { getProductDe, addReview, clearErrorReview } from '../actions/productActions';
+
+const AddReviewModal = ({ productDe, reviewAdded, error, addReview, clearErrorReview,getProductDe }) => {
+const [value, setValue] = useState(0);
+const [ratingDes, setRatingDes] = useState("");
+const [content, setContent] = useState("");
+const [msg, setMsg] = useState(null);
+
+// Display different description by rating point
+useEffect(() => {
+if(value === 0) return; 
+switch(value){
+  case null:
+    setRatingDes("Click to rate!");
+    break;
+  case 1:
+    setRatingDes("Poor");
+    break;
+  case 2:
+    setRatingDes("Fair");
+    break;
+  case 3:
+    setRatingDes("Average");
+    break;
+  case 4:
+    setRatingDes("Good");
+    break;
+  case 5:
+    setRatingDes("Execllent");
+    break;                      
+  default:
+    console.log(value);
+}; 
+//eslint-disable-next-line
+},[value]);
+
+// Fire when review submitted, Display the message submit whether success
+useEffect(() => {
+if(error){
+  setMsg(error);
+};
+if(reviewAdded){
+  setMsg(reviewAdded);
+};
+//eslint-disable-next-line
+},[error, reviewAdded]);
 
 
-const AddReviewModal = () => {
-const [ratingStar1, setRatingStar1] = useState(false);    
-const [ratingStar2, setRatingStar2] = useState(false);    
-const [ratingStar3, setRatingStar3] = useState(false);    
-const [ratingStar4, setRatingStar4] = useState(false);    
-const [ratingStar5, setRatingStar5] = useState(false);    
-const [clickStar, setClickStar] = useState(false);
-const [clickStar2, setClickStar2] = useState(false);
-const [clickStar3, setClickStar3] = useState(false);
-const [clickStar4, setClickStar4] = useState(false);
-const [clickStar5, setClickStar5] = useState(false);
-const [rateComment, setRateComment] = useState("Click to rate!");
-// useEffect(() => {
-// if(!ratingStar1 && !ratingStar2 && !ratingStar3 && !ratingStar4 && !ratingStar5){
-//     setRateComment("Click to rate!")
-// }
-// },[ratingStar1,ratingStar2,ratingStar3,ratingStar4,ratingStar5])
-// useEffect(() => {
-//   if(clickStar && clickStar2 && clickStar3 && clickStar4 && clickStar5){
-//     setRateComment("Click to rate!")
-//   }
-// },[ratingStar1,ratingStar2,ratingStar3,ratingStar4,ratingStar5])
-    
+// Handle clean msg and renew page after write review
+const handleClick = () => {
+  getProductDe(productDe && productDe._id);
+  clearErrorReview();
+  setMsg("");
+};
+
+
+const submitReview = e => {
+   e.preventDefault();
+   addReview(productDe && productDe._id, { rating:value, comment:content });
+   setValue(0);
+   setContent("");
+};
     return (
-        <div className="modal fade" id="add-review-modal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal fade" id="add-review-modal" data-backdrop="static" data-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h4 className="modal-title" id="exampleModalLabel">My Review</h4>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <h4 className="modal-title" id="staticBackdropLabel">My Review</h4>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={handleClick}>
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
+             <form onSubmit={submitReview}>
               <div className="modal-body">
                <div className="overall-rating d-flex">      
                  <div>Overall Rating</div>
-                 <div className="mx-2 star-group"
-                    onMouseLeave={() => 
-                    (setRatingStar1(false),
-                    setRatingStar2(false),
-                    setRatingStar3(false),
-                    setRatingStar4(false),
-                    setRatingStar5(false))}>   
-                  <span>
-                   <FontAwesomeIcon className={ratingStar1 || clickStar || clickStar2 || clickStar3 || clickStar4 || clickStar5 ? "rating-star-hover":"rating-star"} icon={['fas', 'star']}
-                   onMouseEnter={() => (setRatingStar1(true),setRatingStar2(false),setRateComment("Poor"))}
-                   onMouseLeave={() => clickStar2 ? (setRatingStar2(true),setRateComment("Fair")):setRateComment("Click to rate")}
-                   onClick={() => (setClickStar(true),setClickStar2(false),setClickStar3(false),setClickStar4(false),setClickStar5(false))}
-                   />                 
-                  </span>  
-                  <span>
-                   <FontAwesomeIcon className={ratingStar2 || clickStar3 || clickStar4 || clickStar5 ? "rating-star-hover":"rating-star"} icon={['fas', 'star']}
-                   onMouseEnter={() => (!ratingStar2 || clickStar2) && (setRatingStar1(true),setRatingStar2(true),setRateComment("Fair"))}
-                   onMouseLeave={() => clickStar2 ? (setRatingStar2(true),setRateComment("Fair")):(setRatingStar2(false),setRateComment("Poor"))}
-                   onClick={() => (setClickStar2(true),setClickStar(false),setClickStar3(false),setClickStar4(false),setClickStar5(false))}
-                   />
-                  </span>  
-                  <span>
-                   <FontAwesomeIcon className={ratingStar3 || clickStar3 || clickStar4 || clickStar5 ? "rating-star-hover":"rating-star"} icon={['fas', 'star']}
-                    onMouseEnter={() => !ratingStar3 && (setRatingStar1(true),setRatingStar2(true),setRatingStar3(true),setRateComment("Average"))}
-                    onMouseLeave={() => ratingStar3 && (setRatingStar3(false),setRateComment("Fair"))}
-                    onClick={() => (setClickStar3(true),setClickStar4(false),setClickStar5(false))}
-                    />
-                  </span>  
-                  <span>
-                   <FontAwesomeIcon className={ratingStar4 || clickStar4 || clickStar5 ? "rating-star-hover":"rating-star"} icon={['fas', 'star']}
-                    onMouseEnter={() => !ratingStar4 && (setRatingStar1(true),setRatingStar2(true),setRatingStar3(true),setRatingStar4(true),setRateComment("Good"))}
-                    onMouseLeave={() => ratingStar4 && (setRatingStar4(false),setRateComment("Average"))}
-                    onClick={() => (setClickStar4(true),setClickStar5(false))}
-                    />
-                  </span>  
-                  <span>
-                   <FontAwesomeIcon className={ratingStar5 || clickStar5 ? "rating-star-hover":"rating-star"} icon={['fas', 'star']}
-                    onMouseEnter={() => !ratingStar5 && (setRatingStar1(true),setRatingStar2(true),setRatingStar3(true),setRatingStar4(true),setRatingStar5(true),setRateComment("Excellent"))}
-                    onMouseLeave={() => ratingStar5 && (setRatingStar5(false),setRateComment("Good"))}
-                    onClick={() => setClickStar5(true)}
-                    />
-                  </span>
+                 <div className="mx-2 star-group p-1">   
+                  <Rating name="rating" value={value} onChange={(e, newValue) => {setValue(newValue)}}/>
                  </div>
-                  <div className="mx-4">{rateComment}</div>
+                 <div className="mx-1">{value === 0 ? "Click to rate!":ratingDes}</div>
                </div>
+               <div className="form-group review-content">
+                <label className="font-weight-normal" htmlFor="review">Review:</label>
+                <textarea className="form-control" value={content} id="review" name="review" row="3" 
+                onChange={e => setContent(e.target.value)}/>
+               </div>
+               {msg && 
+               <div className={`text-center ${msg === "Product already reviewed" ? "text-danger":"text-success"}`}>
+                 <h3>{msg}</h3>
+               </div>}
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-warning">SUBMIT</button>
+                <button type="submit" className="btn btn-warning">SUBMIT</button>
               </div>
+             </form>
             </div>
           </div>
         </div>
     )
 }
 
-export default AddReviewModal;
+
+const mapStateToProps = state => ({
+   productDe:state.product.productDe,
+   reviewAdded:state.product.reviewAdded,
+   error:state.product.error
+});
+
+export default connect(mapStateToProps, { addReview, clearErrorReview, getProductDe })(AddReviewModal);

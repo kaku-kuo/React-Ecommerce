@@ -6,31 +6,26 @@ import ProductItem from '../productPages/ProductItem';
 import PropTypes from 'prop-types';
 import { getProducts } from '../actions/productActions';
 
-const ProductList = ({ product:{ products,loading}, getProducts }) => {
+const ProductList = ({ product:{ products }, getProducts }) => {
   useEffect(() => {
      getProducts();
      //eslint-disable-next-line      
   },[]);
 
     return (
-       loading && products ?
-        <div className="wholesection">  
-          <h5>Refine Results</h5>
-          <div className="filterandproduct">
-            <div className="filterbox">
+          products ?
+          <div className="container-fluid">
+            <div className="row">
               <ProductFilter/>
-            </div>
-            <div className="productbox">
-              {!loading && products.length === 0 ? (
-                <p>No products to show</p>
-              ) : (
-                products.map(product => <ProductItem product={product} key={product._id}/>)
-              )}
-            </div> 
-          </div>        
-        </div>
-        :
-        <Preloader/>
+             <div className="col-sm">
+              <div className="row"> 
+               {products.map(product => <ProductItem product={product} key={product._id}/>)}
+              </div> 
+             </div>
+           </div>
+          </div>
+          :
+          <Preloader/> 
     )
 }
 

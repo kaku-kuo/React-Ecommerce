@@ -12,10 +12,10 @@ useEffect(() => {
 if(!review) return;    
 switch(review.rating){
     case 1:
-       setStar2(false) 
-       setStar3(false) 
-       setStar4(false) 
-       setStar5(false)
+        setStar2(false) 
+        setStar3(false) 
+        setStar4(false) 
+        setStar5(false)
        break; 
     case 2: 
         setStar3(false) 
@@ -35,7 +35,6 @@ switch(review.rating){
        console.log(review)  
 }
 // eslint-disable-next-line
-console.log("ReviewItems effect");
 },[review.rating]);
 
     return (
