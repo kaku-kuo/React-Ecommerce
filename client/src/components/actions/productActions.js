@@ -13,11 +13,11 @@ import {
 } from '../actions/types';
 
 
-// Get all products
-export const getProducts = () => async dispatch => {
+// Get different products by brand, price...etc
+export const getProducts = (keyword) => async dispatch => {
     try {
         setLoading();
-        const res = await axios.get("/api/products");
+        const res = await axios.get(`/api/products/${keyword}`);
 
         dispatch({
             type:GET_PRODUCTS,
@@ -34,7 +34,7 @@ export const getProducts = () => async dispatch => {
 export const getProductDe = id => async dispatch => {
     try {
         setLoading();
-        const res = await axios.get(`/api/products/${id}`);
+        const res = await axios.get(`/api/products/details/${id}`);
 
         dispatch({
             type:GET_PRODUCT,

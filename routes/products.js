@@ -17,13 +17,112 @@ router.get('/', async(req, res) => {
        console.error(err.message);
        res.status(500).send("Server error"); 
     }
-    
 });
+
+
+// @route    GET api/products
+// @desc     List different products
+// @access   Public
+router.get('/:keyword', async(req, res) => {
+
+    try {
+        console.log(req.params.keyword)
+       switch(req.params.keyword){
+           case "size075":
+             const size075Product = await Product.find({ "countInStock.0":{ $gt:0 } }); 
+             res.json(size075Product);
+             break; 
+           case "size080":
+             const size080Product = await Product.find({ "countInStock.1":{ $gt:0 } }); 
+             res.json(size080Product);
+             break; 
+           case "size085":
+             const size085Product = await Product.find({ "countInStock.2":{ $gt:0 } }); 
+             res.json(size085Product);
+             break; 
+           case "size090":
+             const size090Product = await Product.find({ "countInStock.3":{ $gt:0 } }); 
+             res.json(size090Product);
+             break; 
+           case "size095":
+             const size095Product = await Product.find({ "countInStock.4":{ $gt:0 } }); 
+             res.json(size095Product);
+             break; 
+           case "size100":
+             const size100Product = await Product.find({ "countInStock.5":{ $gt:0 } }); 
+             res.json(size100Product);
+             break; 
+           case "size105":
+             const size105Product = await Product.find({ "countInStock.6":{ $gt:0 } }); 
+             res.json(size105Product);
+             break; 
+           case "size110":
+             const size110Product = await Product.find({ "countInStock.7":{ $gt:0 } }); 
+             res.json(size110Product);
+             break; 
+           case "jordan":
+             const jordanProducts = await Product.find({ brand:{ $eq: "Jordan" } });
+             res.json(jordanProducts);
+             break;
+           case "kobe":
+             const kobeProducts = await Product.find({ brand:{ $eq: "Kobe" }});
+             res.json(kobeProducts);
+             break;
+           case "lbj":
+             const lbjProducts = await Product.find({ brand:{ $eq: "lbj" }});
+             res.json(lbjProducts);
+             break;
+           case "drose":
+             const droseProducts = await Product.find({ brand:{ $eq: "drose" } });
+             res.json(droseProducts);
+             break;        
+           case "jordanunder5000":
+             const jordanUnder5000 = await Product.find({ brand:{ $eq: "Jordan" }, price:{ $lte: 5000 }});
+             res.json(jordanUnder5000);
+             break; 
+           case "jordanover5000":
+             const jordanOver5000 = await Product.find({ brand:{ $eq: "Jordan" }, price:{ $gte: 5000 }});
+             res.json(jordanOver5000);
+             break;
+           case "kobeunder5000":
+             const kobeUnder5000 = await Product.find({ brand:{ $eq: "Kobe" }, price:{ $lte: 5000 }});
+             res.json(kobeUnder5000);
+             break;
+           case "kobeover5000":
+             const kobeOver5000 = await Product.find({ brand:{ $eq: "Kobe" }, price:{ $gte: 5000 }});
+             res.json(kobeOver5000);
+             break;
+           case "lbjunder5000":
+             const lbjUnder5000 = await Product.find({ brand:{ $eq: "lbj" }, price:{ $lte: 5000 }});
+             res.json(lbjUnder5000);
+             break;
+           case "lbjover5000":
+             const lbjOver5000 = await Product.find({ brand:{ $eq: "lbj" }, price:{ $gte: 5000 }});
+             res.json(lbjOver5000);
+             break;
+           case "droseunder5000":
+             const droseUnder5000 = await Product.find({ brand:{ $eq: "drose" }, price:{ $lte: 5000 }});
+             res.json(droseUnder5000);
+             break;
+           case "droseover5000":
+             const droseOver5000 = await Product.find({ brand:{ $eq: "drose" }, price:{ $gte: 5000 }});
+             res.json(droseOver5000);
+             break;                                    
+           default:
+            const products = await Product.find({});
+            res.json(products);      
+       };        
+    } catch (err) {
+       console.error(err.message);
+       res.status(500).send("Server error"); 
+    }
+});
+
 
 // @route     GET api/products
 // @desc      Get one product
-// @access    Private 
-router.get('/:id', async(req,res) => {
+// @access    Public 
+router.get('/details/:id', async(req,res) => {
 
     try {
         const product = await Product.findById(req.params.id);

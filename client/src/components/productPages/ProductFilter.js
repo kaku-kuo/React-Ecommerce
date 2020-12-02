@@ -2,15 +2,12 @@ import React,{ useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
-const ProductFilter = () => {
+const ProductFilter = ({ valueFromFilter }) => {
 const [size, setSize] = useState(false);
 const [price, setPrice] = useState(false);
+const [priceFilter, setPriceFilter] = useState(false);
 
 
-
-const handleCheck = e => {
-console.log(e.target.name,e.target.checked)
-};
     return (
         <div className="col-sm-2">                    
           <ul className="filter">    
@@ -24,20 +21,20 @@ console.log(e.target.name,e.target.checked)
             {size ? 
             <div>
              <div className="filteritem">
-               <label className="checkboxcontainer">
-                <input type="checkbox" name="white" onChange={handleCheck}/>WHITE
-                <span className="checkmark"/>
-               </label>                     
+              <label className="checkboxcontainer">
+               <input type="checkbox" name="size075" onChange={e => e.target.checked ? valueFromFilter(e.target.name):valueFromFilter("")}/>07.5
+               <span className="checkmark"/>
+              </label>                     
              </div>       
              <div className="filteritem">
               <label className="checkboxcontainer">
-                <input type="checkbox" name="black" onChange={handleCheck}/>BLACK
+                <input type="checkbox" name="size080" onChange={e => e.target.checked ? valueFromFilter(e.target.name):valueFromFilter("")}/>08.0
                 <span className="checkmark"/>
               </label>             
              </div>
              <div className="filteritem">
               <label className="checkboxcontainer">
-                <input type="checkbox" name="grey" onChange={handleCheck}/>GREY
+                <input type="checkbox" name="size085" onChange={e => e.target.checked ? valueFromFilter(e.target.name):valueFromFilter("")}/>08.5
                 <span className="checkmark"/>
               </label>             
              </div>
@@ -52,15 +49,15 @@ console.log(e.target.name,e.target.checked)
             {price ?
             <div>
             <div className="filteritem">
-               <label className="checkboxcontainer">
-                <input type="checkbox" name="under1200" onChange={handleCheck}/>UNDER $1200
-                <span className="checkmark"/>
-               </label>                     
+            <label className="checkboxcontainer">
+              <input type="checkbox" name="under5000" onChange={e => e.target.checked ? valueFromFilter(e.target.name):valueFromFilter("")}/>UNDER $5000
+              <span className="checkmark"/>
+            </label>                     
             </div>       
             <div className="filteritem">
             <label className="checkboxcontainer">
-                <input type="checkbox" name="over1200" onChange={handleCheck}/>OVER $1200
-                <span className="checkmark"/>
+              <input type="checkbox" name="over5000" onChange={e => e.target.checked ? valueFromFilter(e.target.name):valueFromFilter("")}/>OVER $5000
+              <span className="checkmark"/>
             </label>             
             </div>
             </div>:null} 

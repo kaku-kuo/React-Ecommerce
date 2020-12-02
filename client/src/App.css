@@ -188,7 +188,7 @@ html,body{
   background-color: #ccc;
 }
 
-/* When the checkbox is checked, add a blue background */
+/* When the checkbox is checked, add a orange background */
 .checkboxcontainer input:checked ~ .checkmark {
   background-color:#f08862;
 }

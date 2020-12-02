@@ -44,8 +44,8 @@ const App = () => {
      <Alert/>
      <Switch>
       <Route exact path="/" component={Home}/>
-      <Route exact path="/productlist" component={ProductList}/>
-      <Route exact path="/productlist/:id" component={ProductDetails}/>
+      <Route exact path="/productlist/:brand" component={ProductList}/>
+      <Route exact path="/productlist/:keyword/:id" component={ProductDetails}/>
       <Route exact path="/cart" component={Cart}/>
       <Route exact path="/login" component={Login}/>
       <Route exact path="/register" component={Register}/>

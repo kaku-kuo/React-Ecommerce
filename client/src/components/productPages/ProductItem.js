@@ -9,7 +9,7 @@ const ProductItem = ({ product }) => {
     
          <div className="col-sm-3 mb-4">
           <div className="each-product">
-          <Link to={`/productlist/${product._id}`} style={{color:"black",textDecoration:"none"}}>
+          <Link to={`/productlist/${product.brand.toLowerCase()}/${product._id}`} style={{color:"black",textDecoration:"none"}}>
            <img className="productimg" src={product.image} alt="productimg"/>  
             <div className="card-content" style={{padding:"15px"}}>
             <div className="productmame">

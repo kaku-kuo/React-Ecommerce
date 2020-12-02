@@ -67,23 +67,23 @@ const handleLogout = () => {
 
         <ul className="category">
            <li>             
-            <Link to="/productlist">
+            <Link to="/productlist/jordan">
             <FontAwesomeIcon className="basketballLogo" icon={['fas', 'basketball-ball']}/>     
              JORDAN
             </Link>            
            </li>
            <li>
-            <Link to="#">
+            <Link to="/productlist/kobe">
              KOBE
             </Link>            
            </li>  
            <li>
-            <Link to="#">
+            <Link to="/productlist/lbj">
              LBJ
             </Link>            
            </li>  
            <li>
-            <Link to="#">            
+            <Link to="/productlist/drose">            
              D.ROSE
             </Link>            
            </li>    
