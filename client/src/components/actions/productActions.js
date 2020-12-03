@@ -14,7 +14,7 @@ import {
 
 
 // Get different products by brand, price...etc
-export const getProducts = (keyword) => async dispatch => {
+export const getProducts = keyword => async dispatch => {
     try {
         setLoading();
         const res = await axios.get(`/api/products/${keyword}`);

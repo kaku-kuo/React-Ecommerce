@@ -10,13 +10,25 @@ const ProductList = ({ product:{ products }, match, history, getProducts }) => {
 const [filterValue, setFilterValue]  = useState("");
 
 // Callback for receive value from child component(ProductFilter)
-const valueFromFilter = (value) => {
-   setFilterValue(value);
+const valueFromFilter = (value1, value2) => {
+        // Add condition or remove condition by tick off
+      if(value2){
+        // Only show either under5000 or over5000 in url
+        if(filterValue.includes("under5000") && value1 === "over5000"){
+          setFilterValue(pre => pre.replace("under5000", ""));
+        };
+        if(filterValue.includes("over5000") && value1 === "under5000"){
+          setFilterValue(pre => pre.replace("over5000", ""));
+        };
+          setFilterValue(pre => pre + value1);
+      }else{
+          setFilterValue(pre => pre.replace(value1, ""));
+      };    
 };   
 
 useEffect(() => { 
   if(filterValue){ 
-    getProducts(match.params.brand+filterValue);
+    getProducts(match.params.brand + filterValue);
     history.push(`/productlist/${match.params.brand}?filter=${filterValue}`);
     console.log(filterValue)
   }else{
@@ -25,7 +37,7 @@ useEffect(() => {
     console.log(filterValue)
   };
   //eslint-disable-next-line      
-},[match.params.brand, filterValue]);
+}, [match.params.brand, filterValue]);
 
     return (
           products ?
