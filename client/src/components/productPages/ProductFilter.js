@@ -22,22 +22,60 @@ const [price, setPrice] = useState(false);
             <div>
              <div className="filteritem">
               <label className="checkboxcontainer">
-               <input type="checkbox" name="size075" onChange={e => e.target.checked ? valueFromFilter(e.target.name,e.target.checked):valueFromFilter(e.target.name,e.target.checked)}/>07.5
+               <input type="checkbox" name="size075" onChange={e => e.target.checked ? valueFromFilter(e.target.name,e.target.checked):valueFromFilter(e.target.name,e.target.checked)}/>
+               07.5
                <span className="checkmark"/>
               </label>                     
              </div>       
              <div className="filteritem">
               <label className="checkboxcontainer">
-                <input type="checkbox" name="size080" onChange={e => e.target.checked ? valueFromFilter(e.target.name,e.target.checked):valueFromFilter(e.target.name,e.target.checked)}/>08.0
+                <input type="checkbox" name="size080" onChange={e => e.target.checked ? valueFromFilter(e.target.name,e.target.checked):valueFromFilter(e.target.name,e.target.checked)}/>
+                08.0
                 <span className="checkmark"/>
               </label>             
              </div>
              <div className="filteritem">
               <label className="checkboxcontainer">
-                <input type="checkbox" name="size085" onChange={e => e.target.checked ? valueFromFilter(e.target.name,e.target.checked):valueFromFilter(e.target.name,e.target.checked)}/>08.5
+                <input type="checkbox" name="size085" onChange={e => e.target.checked ? valueFromFilter(e.target.name,e.target.checked):valueFromFilter(e.target.name,e.target.checked)}/>
+                08.5
                 <span className="checkmark"/>
               </label>             
              </div>
+             <div className="filteritem">
+              <label className="checkboxcontainer">
+                <input type="checkbox" name="size090" onChange={e => e.target.checked ? valueFromFilter(e.target.name,e.target.checked):valueFromFilter(e.target.name,e.target.checked)}/>
+                09.0
+                <span className="checkmark"/>
+              </label>             
+             </div>
+             <div className="filteritem">
+              <label className="checkboxcontainer">
+                <input type="checkbox" name="size095" onChange={e => e.target.checked ? valueFromFilter(e.target.name,e.target.checked):valueFromFilter(e.target.name,e.target.checked)}/>
+                09.5
+                <span className="checkmark"/>
+              </label>             
+             </div>
+             <div className="filteritem">
+              <label className="checkboxcontainer">
+                <input type="checkbox" name="size100" onChange={e => e.target.checked ? valueFromFilter(e.target.name,e.target.checked):valueFromFilter(e.target.name,e.target.checked)}/>
+                10.0
+                <span className="checkmark"/>
+              </label>             
+             </div>
+             <div className="filteritem">
+              <label className="checkboxcontainer">
+                <input type="checkbox" name="size105" onChange={e => e.target.checked ? valueFromFilter(e.target.name,e.target.checked):valueFromFilter(e.target.name,e.target.checked)}/>
+                10.5
+                <span className="checkmark"/>
+              </label>             
+             </div>
+             <div className="filteritem">
+              <label className="checkboxcontainer">
+                <input type="checkbox" name="size110" onChange={e => e.target.checked ? valueFromFilter(e.target.name,e.target.checked):valueFromFilter(e.target.name,e.target.checked)}/>
+                11.0
+                <span className="checkmark"/>
+              </label>             
+             </div>    
             </div>:null}
 
             <ul className="price p-0" onClick={() => !price ? setPrice(true):setPrice(false)}>

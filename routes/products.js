@@ -5,147 +5,100 @@ const auth = require("../middleware/auth");
 
 const Product = require("../models/Product");
 
-// @route    GET api/products
-// @desc     List all products
-// @access   Public
-router.get('/', async(req, res) => {
-
-    try {
-       const products = await Product.find({});
-       res.json(products);
-    } catch (err) {
-       console.error(err.message);
-       res.status(500).send("Server error"); 
-    }
-});
-
 
 // @route    GET api/products
 // @desc     List different products
 // @access   Public
 router.get('/:keyword', async(req, res) => {
-let jordan = null;
-let kobe = null;
-let lbj = null;
-let drose = null;
-let under = 0;
-let over = 0;
+let filterObj = { brand:"" };
+let under = null;
+let over = null;
 let size075 = null;
 let size080 = null;
 let size085 = null;
-if(req.params.keyword.includes("jordan")){ jordan = "Jordan"}
-if(req.params.keyword.includes("kobe")){ kobe = "Kobe"}
-if(req.params.keyword.includes("lbj")){ lbj = "lbj"}
-if(req.params.keyword.includes("drose")){ drose = "drose"}
-if(req.params.keyword.includes("under")){ under = 5000}
-if(req.params.keyword.includes("over")){ over = 5000}
-if(req.params.keyword.includes("size075")){ size075 = 0}
-if(req.params.keyword.includes("size080")){ size080 = 1}
-if(req.params.keyword.includes("size085")){ size085 = 2}
-
-
+let size090 = null;
+let size095 = null;
+let size100 = null;
+let size105 = null;
+let size110 = null;
+if(req.params.keyword.includes("jordan")){ filterObj.brand = { $eq:"Jordan" }};
+if(req.params.keyword.includes("kobe")){ filterObj.brand = { $eq:"Kobe" }};
+if(req.params.keyword.includes("lbj")){  filterObj.brand = { $eq:"lbj" }};
+if(req.params.keyword.includes("drose")){  filterObj.brand = { $eq:"drose" }};
+if(req.params.keyword.includes("under")){ 
+    under = { price:{ $lte:5000 } }
+    filterObj = {
+        ...filterObj,
+        ...under
+    };
+};
+if(req.params.keyword.includes("over")){
+    over = { price:{ $gte:5000 } }
+    filterObj = {
+        ...filterObj,
+        ...over
+    };
+};
+if(req.params.keyword.includes("size075")){ 
+    size075 = { "countInStock.0":{ $gt:0 } }
+    filterObj = {
+        ...filterObj,
+        ...size075
+    };
+};
+if(req.params.keyword.includes("size080")){ 
+    size080 = { "countInStock.1":{ $gt:0 } }
+    filterObj = {
+        ...filterObj,
+        ...size080
+    };
+};
+if(req.params.keyword.includes("size085")){
+    size085 = { "countInStock.2":{ $gt:0 } }
+    filterObj = {
+        ...filterObj,
+        ...size085
+    };
+};
+if(req.params.keyword.includes("size090")){
+    size090 = { "countInStock.3":{ $gt:0 } }
+    filterObj = {
+        ...filterObj,
+        ...size090
+    };
+};
+if(req.params.keyword.includes("size095")){
+    size095 = { "countInStock.4":{ $gt:0 } }
+    filterObj = {
+        ...filterObj,
+        ...size095
+    };
+};
+if(req.params.keyword.includes("size100")){
+    size100 = { "countInStock.5":{ $gt:0 } }
+    filterObj = {
+        ...filterObj,
+        ...size100
+    };
+};
+if(req.params.keyword.includes("size105")){
+    size105 = { "countInStock.6":{ $gt:0 } }
+    filterObj = {
+        ...filterObj,
+        ...size105
+    };
+};
+if(req.params.keyword.includes("size110")){
+    size110 = { "countInStock.7":{ $gt:0 } }
+    filterObj = {
+        ...filterObj,
+        ...size110
+    };
+};
     try {
-      if(!over && !under){
-        console.log("only brand")
-        const Products = await Product.find({ brand:{ $eq: jordan || kobe || lbj || drose} }); 
-        return res.json(Products);
-      } 
-      if(over || !size075 || size080 || size085){
-        console.log("over + size075 080 085")
-        const ProductsOver5000 = await Product.find(over ? { brand:{ $eq: jordan || kobe || lbj || drose}, price:{ $gte:over }}
-          : { brand:{ $eq: jordan || kobe || lbj || drose}, price:{ $gte:over }, [`countInStock.${size075}`]:{ $gte:0 } }); 
-        return res.json(ProductsOver5000);
-      }          
-      if(under){
-        console.log("under")
-        const ProductsUnder5000 = await Product.find({ brand:{ $eq: jordan || kobe || lbj || drose}, price:{ $lte:under } }); 
-        return res.json(ProductsUnder5000);
-      }          
-      //  switch(req.params.keyword){
-      //      case "jordansize075":
-      //        const jordansize075Product = await Product.find({ brand:{ $eq: "Jordan" }, "countInStock.0":{ $gt:0 } }); 
-      //        res.json(jordansize075Product);
-      //        break; 
-      //      case "jordansize080":
-      //        const jordansize080Product = await Product.find({ brand:{ $eq: "Jordan" }, "countInStock.1":{ $gt:0 } }); 
-      //        res.json(jordansize080Product);
-      //        break; 
-      //      case "jordansize085":
-      //        const jordansize085Product = await Product.find({ brand:{ $eq: "Jordan" }, "countInStock.2":{ $gt:0 } }); 
-      //        res.json(jordansize085Product);
-      //        break; 
-      //      case "jordansize090":
-      //        const jordansize090Product = await Product.find({ brand:{ $eq: "Jordan" }, "countInStock.3":{ $gt:0 } }); 
-      //        res.json(jordansize090Product);
-      //        break; 
-      //      case "jordansize095":
-      //        const jordansize095Product = await Product.find({ brand:{ $eq: "Jordan" }, "countInStock.4":{ $gt:0 } }); 
-      //        res.json(jordansize095Product);
-      //        break; 
-      //      case "jordansize100":
-      //        const jordansize100Product = await Product.find({ brand:{ $eq: "Jordan" }, "countInStock.5":{ $gt:0 } }); 
-      //        res.json(jordansize100Product);
-      //        break; 
-      //      case "jordansize105":
-      //        const jordansize105Product = await Product.find({ brand:{ $eq: "Jordan" }, "countInStock.6":{ $gt:0 } }); 
-      //        res.json(jordansize105Product);
-      //        break; 
-      //      case "jordansize110":
-      //        const jordansize110Product = await Product.find({ brand:{ $eq: "Jordan" }, "countInStock.7":{ $gt:0 } }); 
-      //        res.json(jordansize110Product);
-      //        break; 
-      //      case "jordan":
-      //        const jordanProducts = await Product.find({ brand:{ $eq: "Jordan" } });
-      //        res.json(jordanProducts);
-      //        break;
-      //      case "kobe":
-      //        const kobeProducts = await Product.find({ brand:{ $eq: "Kobe" }});
-      //        res.json(kobeProducts);
-      //        break;
-      //      case "lbj":
-      //        const lbjProducts = await Product.find({ brand:{ $eq: "lbj" }});
-      //        res.json(lbjProducts);
-      //        break;
-      //      case "drose":
-      //        const droseProducts = await Product.find({ brand:{ $eq: "drose" } });
-      //        res.json(droseProducts);
-      //        break;        
-      //      case "jordanunder5000":
-      //        const jordanUnder5000 = await Product.find({ brand:{ $eq: "Jordan" }, price:{ $lte: 5000 }});
-      //        res.json(jordanUnder5000);
-      //        break; 
-      //      case "jordanover5000":
-      //        const jordanOver5000 = await Product.find({ brand:{ $eq: "Jordan" }, price:{ $gte: 5000 }});
-      //        res.json(jordanOver5000);
-      //        break;
-      //      case "kobeunder5000":
-      //        const kobeUnder5000 = await Product.find({ brand:{ $eq: "Kobe" }, price:{ $lte: 5000 }});
-      //        res.json(kobeUnder5000);
-      //        break;
-      //      case "kobeover5000":
-      //        const kobeOver5000 = await Product.find({ brand:{ $eq: "Kobe" }, price:{ $gte: 5000 }});
-      //        res.json(kobeOver5000);
-      //        break;
-      //      case "lbjunder5000":
-      //        const lbjUnder5000 = await Product.find({ brand:{ $eq: "lbj" }, price:{ $lte: 5000 }});
-      //        res.json(lbjUnder5000);
-      //        break;
-      //      case "lbjover5000":
-      //        const lbjOver5000 = await Product.find({ brand:{ $eq: "lbj" }, price:{ $gte: 5000 }});
-      //        res.json(lbjOver5000);
-      //        break;
-      //      case "droseunder5000":
-      //        const droseUnder5000 = await Product.find({ brand:{ $eq: "drose" }, price:{ $lte: 5000 }});
-      //        res.json(droseUnder5000);
-      //        break;
-      //      case "droseover5000":
-      //        const droseOver5000 = await Product.find({ brand:{ $eq: "drose" }, price:{ $gte: 5000 }});
-      //        res.json(droseOver5000);
-      //        break;                                    
-      //      default:
-      //       const products = await Product.find({});
-      //       res.json(products);      
-      //  };        
+       //Using Object Spread Operator to adding different fields to the object and then Destructure in to Product.dind(). 
+       const Products = await Product.find({ ...filterObj }); 
+       return res.json(Products);
     } catch (err) {
        console.error(err.message);
        res.status(500).send("Server error"); 
