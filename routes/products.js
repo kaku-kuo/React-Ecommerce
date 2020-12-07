@@ -9,7 +9,9 @@ const Product = require("../models/Product");
 // @route    GET api/products
 // @desc     List different products
 // @access   Public
-router.get('/:keyword', async(req, res) => {
+router.get('/', async(req, res) => {
+const pageSize = 8;    
+const page = Number(req.query.pageNumber) || 1;
 let filterObj = { brand:"" };
 let under = null;
 let over = null;
@@ -21,74 +23,74 @@ let size095 = null;
 let size100 = null;
 let size105 = null;
 let size110 = null;
-if(req.params.keyword.includes("jordan")){ filterObj.brand = { $eq:"Jordan" }};
-if(req.params.keyword.includes("kobe")){ filterObj.brand = { $eq:"Kobe" }};
-if(req.params.keyword.includes("lbj")){  filterObj.brand = { $eq:"lbj" }};
-if(req.params.keyword.includes("drose")){  filterObj.brand = { $eq:"drose" }};
-if(req.params.keyword.includes("under")){ 
+if(req.query.keyword.includes("jordan")){ filterObj.brand = { $eq:"Jordan" }};
+if(req.query.keyword.includes("kobe")){ filterObj.brand = { $eq:"Kobe" }};
+if(req.query.keyword.includes("lbj")){  filterObj.brand = { $eq:"lbj" }};
+if(req.query.keyword.includes("drose")){  filterObj.brand = { $eq:"drose" }};
+if(req.query.keyword.includes("under")){ 
     under = { price:{ $lte:5000 } }
     filterObj = {
         ...filterObj,
         ...under
     };
 };
-if(req.params.keyword.includes("over")){
+if(req.query.keyword.includes("over")){
     over = { price:{ $gte:5000 } }
     filterObj = {
         ...filterObj,
         ...over
     };
 };
-if(req.params.keyword.includes("size075")){ 
+if(req.query.keyword.includes("size075")){ 
     size075 = { "countInStock.0":{ $gt:0 } }
     filterObj = {
         ...filterObj,
         ...size075
     };
 };
-if(req.params.keyword.includes("size080")){ 
+if(req.query.keyword.includes("size080")){ 
     size080 = { "countInStock.1":{ $gt:0 } }
     filterObj = {
         ...filterObj,
         ...size080
     };
 };
-if(req.params.keyword.includes("size085")){
+if(req.query.keyword.includes("size085")){
     size085 = { "countInStock.2":{ $gt:0 } }
     filterObj = {
         ...filterObj,
         ...size085
     };
 };
-if(req.params.keyword.includes("size090")){
+if(req.query.keyword.includes("size090")){
     size090 = { "countInStock.3":{ $gt:0 } }
     filterObj = {
         ...filterObj,
         ...size090
     };
 };
-if(req.params.keyword.includes("size095")){
+if(req.query.keyword.includes("size095")){
     size095 = { "countInStock.4":{ $gt:0 } }
     filterObj = {
         ...filterObj,
         ...size095
     };
 };
-if(req.params.keyword.includes("size100")){
+if(req.query.keyword.includes("size100")){
     size100 = { "countInStock.5":{ $gt:0 } }
     filterObj = {
         ...filterObj,
         ...size100
     };
 };
-if(req.params.keyword.includes("size105")){
+if(req.query.keyword.includes("size105")){
     size105 = { "countInStock.6":{ $gt:0 } }
     filterObj = {
         ...filterObj,
         ...size105
     };
 };
-if(req.params.keyword.includes("size110")){
+if(req.query.keyword.includes("size110")){
     size110 = { "countInStock.7":{ $gt:0 } }
     filterObj = {
         ...filterObj,
@@ -96,12 +98,21 @@ if(req.params.keyword.includes("size110")){
     };
 };
     try {
-       //Using Object Spread Operator to adding different fields to the object and then Destructure in to Product.dind(). 
-       const Products = await Product.find({ ...filterObj }); 
-       return res.json(Products);
+        // Using Object Spread Operator to adding different fields to the object,
+        // and then Destructure in to Product.dind().
+       if(req.query.keyword === "admin"){
+         const count = await Product.countDocuments({});   
+         const products = await Product.find({}).limit(pageSize).skip(pageSize * (page - 1));
+         return res.json({ products, page, pages: Math.ceil(count / pageSize) });
+       }else{
+         const count = await Product.countDocuments({ ...filterObj });  
+         const products = await Product.find({ ...filterObj }).limit(pageSize).skip(pageSize * (page - 1)); 
+         return res.json({ products, page, pages: Math.ceil(count / pageSize) });
+       };  
+    
     } catch (err) {
-       console.error(err.message);
-       res.status(500).send("Server error"); 
+         console.error(err.message);
+         res.status(500).send("Server error"); 
     }
 });
 
@@ -114,6 +125,21 @@ router.get('/details/:id', async(req,res) => {
     try {
         const product = await Product.findById(req.params.id);
         res.json(product);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error")
+    }
+});
+
+
+
+// @route     GET api/products
+// @desc      Get top rated products
+// @access    Public 
+router.get('/top', async(req,res) => {
+    try {
+        const products = await Product.find({}).sort({ rating:-1 }).limit(6);
+        res.json(products);
     } catch (err) {
         console.error(err.message);
         res.status(500).send("Server Error")

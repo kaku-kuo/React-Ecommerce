@@ -1,37 +1,43 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { getTopProducts } from '../actions/productActions';
+import Preloader from '../layout/Preloader';
 
-const NewArrivals = () => {
+const NewArrivals = ({ product:{ topProducts }, getTopProducts }) => {
+useEffect(() => {
+getTopProducts();    
+//eslint-disable-next-line
+},[]);
+
     return (
-        <div className="newarrivals">
-         <div className="newarrivalstitle">  
-          <div >New Arrivals</div>  
-         </div> 
-          <div className="newitems">
-           <div className="newitem">
-            <Link to="#"><img src="https://via.placeholder.com/150" alt="newitem1"/></Link> 
-            <div>Air max3</div>
-           </div>
-           <div className="newitem">
-            <Link to="#"><img src="https://via.placeholder.com/150" alt="newitem2"/></Link> 
-            <div>Air max</div>
-           </div>
-           <div className="newitem">
-            <Link to="#"><img src="https://via.placeholder.com/150" alt="newitem3"/></Link> 
-            <div>Air max</div>
-           </div>
-           <div className="newitem">
-            <Link to="#"><img src="https://via.placeholder.com/150" alt="newitem3"/></Link> 
-            <div>Air max</div>
-           </div>
-           <div className="newitem">
-            <Link to="#"><img src="https://via.placeholder.com/150" alt="newitem3"/></Link> 
-            <div>Air max</div>
-           </div>
+        topProducts ?
+        <div className="newarrivals container-fluid">
+          <div className="newitems row justify-content-between">
+           {topProducts.map(product => (
+            <div className="newitem col-2" key={product._id}>
+             <Link className="w-100 text-decoration-none text-dark" to={`/productlist/${product.brand}/${product._id}`}>
+             <img className="w-100" src={product.image} alt="..."/>
+             <div>{product.name}</div>
+             </Link> 
+           </div>  
+           ))}   
         </div>
-       </div> 
+       </div>
+       :
+       <Preloader/> 
     )
 }
 
+NewArrivals.propTypes = {
+    product:PropTypes.object,
+    getTopProducts:PropTypes.func.isRequired
+};
 
-export default NewArrivals;
+
+const mapStateToProps = state => ({
+    product:state.product
+});
+
+export default connect(mapStateToProps, { getTopProducts })(NewArrivals);

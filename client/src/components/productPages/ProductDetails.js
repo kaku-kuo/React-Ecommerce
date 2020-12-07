@@ -105,7 +105,7 @@ const handleSubmit = e => {
         productDe ?
        <div className="container">     
         <div className="product-details d-flex">
-         <div style={{paddingRight:"1.5rem"}}>         
+         <div className="row align-items-center" style={{paddingRight:"1.5rem"}}>         
           <img className="details-img" src={productDe.image} alt="detaolsimg"/>           
          </div> 
          <div className="rightdetails ">   

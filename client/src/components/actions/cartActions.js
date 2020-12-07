@@ -12,7 +12,7 @@ import {
 
 // Add item to cart
 export const addToCart = (item,id) => async (dispatch, getState) =>{
-    const { data } = await axios.get(`/api/products/${id}`); 
+    const { data } = await axios.get(`/api/products/details/${id}`); 
      const idForIdentifier = uuidv4();
      dispatch({
          type:ADD_TO_CART,

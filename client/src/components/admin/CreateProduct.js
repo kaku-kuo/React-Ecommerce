@@ -112,7 +112,7 @@ const handleSubmit = e => {
            </div>  
            <div className="form-group">
             <label htmlFor="description">Description</label>
-            <input type="text" className="form-control" name="description" placeholder="Enter description" id="description" onChange={e => setDes(e.target.value)}/>
+            <textarea rows="6" className="form-control" name="description" placeholder="Enter description" id="description" onChange={e => setDes(e.target.value)}/>
            </div>
            <div className="form-group">
             <label>Size Stocks</label>

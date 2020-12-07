@@ -7,18 +7,19 @@ import { cleanNewProduct } from '../actions/adminActions';
 import Preloader from '../layout/Preloader';
 import AdminPageProductItems from './AdminPageProductItems';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Paginate from '../layout/Paginate';
 
-const AdminPage = ({ products,newProduct , getProducts, cleanNewProduct }) => {
-
+const AdminPage = ({ product:{ products, pages, page}, userDe , newProduct ,getProducts, cleanNewProduct, match }) => {
+const pageNumber = match.params.pageNumber || 1
 useEffect(() => {
-getProducts();
+getProducts("admin", pageNumber);
 if(newProduct){
  cleanNewProduct();  
 };
 // eslint-disable-next-line 
-},[]);
+},[pageNumber]);
     return (
-        products ?
+        products && userDe ?
         <div className="container">
          <div className="order-list">
             <div className="d-flex justify-content-between my-4"> 
@@ -44,7 +45,8 @@ if(newProduct){
                {products.map(product => <AdminPageProductItems productItem={product} key={product._id}/>)}
               </tbody>
              </table>
-         </div>   
+         </div>
+         <Paginate pages={pages} page={page} isAdmin={userDe.isAdmin}/>   
         </div>
         :
         <Preloader/>
@@ -59,8 +61,9 @@ AdminPage.propTypes = {
 };
 
 const mapStateToProps = state => ({
-   products:state.product.products,
-   newProduct:state.admin.newProduct
+   product:state.product,
+   newProduct:state.admin.newProduct,
+   userDe:state.user.userDe
 });
 
 export default connect(mapStateToProps, { getProducts, cleanNewProduct })(AdminPage);

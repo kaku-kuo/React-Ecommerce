@@ -101,7 +101,7 @@ const handleSubmit = e => {
   window.scrollTo(0,0);
   setAlert("Product been updated!", "success");
   setTimeout(() => {
-     history.push('/admin');
+     history.push('/admin/page/1');
   },2000);
 };
 
@@ -134,7 +134,7 @@ const handleSubmit = e => {
            </div>  
            <div className="form-group">
             <label htmlFor="description">Description</label>
-            <input type="text" className="form-control" name="description" value={des} placeholder="Enter description" id="description" onChange={e => setDes(e.target.value)}/>
+            <textarea rows="6" className="form-control" name="description" value={des} placeholder="Enter description" id="description" onChange={e => setDes(e.target.value)}/>
            </div>
            <div className="form-group">
             <label>Size Stocks</label>

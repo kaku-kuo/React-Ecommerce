@@ -8,13 +8,18 @@ import {
     ADD_REVIEW_FAIL,
     PRODUCTS_ERROR,
     SET_LOADING,
-    CLEAR_REVIEW_ERROR
+    CLEAR_REVIEW_ERROR,
+    GET_TOP_PRODUCTS_SUCCESS,
+    GET_TOP_PRODUCTS_FAIL
 } from '../components/actions/types';
 
 const initialState = {
     products:null,
     productDe:null,
+    topProducts:null,
     reviewAdded:null,
+    pages:0,
+    page:0,    
     loading:false,
     error:null
 };
@@ -24,8 +29,16 @@ export default(state = initialState, action) => {
         case GET_PRODUCTS: 
           return {
             ...state,
-            products:action.payload,
+            products:action.payload.products,
+            pages:action.payload.pages,
+            page:action.payload.page, 
             loading:true  
+        };
+        case GET_TOP_PRODUCTS_SUCCESS:
+          return {
+            ...state,
+            topProducts:action.payload,
+            loading:true
         };
         case UPDATE_PRODUCT_SUCCESS:
         case GET_PRODUCT:
@@ -54,6 +67,7 @@ export default(state = initialState, action) => {
         case ADD_REVIEW_FAIL:
         case UPDATE_PRODUCT_FAIL:
         case PRODUCTS_ERROR:
+        case GET_TOP_PRODUCTS_FAIL:
           return {
              ...state,
              error:action.payload 

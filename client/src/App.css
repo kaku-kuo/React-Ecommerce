@@ -6,7 +6,10 @@ html,body{
 
 .basketballLogo{
   color:#f08862;
-  margin-right: 5px;
+}
+
+.basketballLogohide{
+  visibility: hidden;
 }
 
 .navbar a{
@@ -36,11 +39,18 @@ html,body{
 }
 
 .category{
+  margin-top: 18px;
+  margin-bottom: 20px;
   list-style-type: none;
   display: flex;
   justify-content:space-between ;
   color: black;
-  margin-bottom: 18px;
+  padding: 0;
+}
+
+/* For bounce animation */
+.fgpRWs{
+  display:inline-block;
 }
 
 .category a{
@@ -62,18 +72,14 @@ html,body{
 
 .newarrivalstitle{
   text-align: center;
-  margin-top: 10px;
-  margin-bottom: 15px;
+  margin: 20px auto;
   font-size: 30px;
   font-weight: bold;
 }
 
-.newitems{
-  display: flex;
-  justify-content: space-between;
-}
-
 .newitem{
+  width: 1rem;
+  height: auto;
   text-align: center;
   font-weight: 600;
 }
@@ -222,13 +228,23 @@ html,body{
 .each-product{
   border: 1px solid lightgray;
   border-radius: 3px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 15px 10px;
 }
-
 
 .productimg{
   width: 100%;
-  height: 220px;
-  padding: 15px;
+  height: 100%;
+}
+
+.card-content{
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .details-img{
@@ -236,9 +252,8 @@ html,body{
   height: auto;
 }
 
-.productmame{
-  margin: 15px 0;
-  font-size: 20px;
+.productname{
+  font-weight: bold;
 }
 
 .productprice{
@@ -257,12 +272,6 @@ html,body{
 .rightdetails{
   width: 35%;
 }
-
-.details-img{
-  width: 100%;
-  height: 100%;
-}
-
 
 .detailsname{
   font-weight: bold;

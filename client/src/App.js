@@ -45,7 +45,9 @@ const App = () => {
      <Switch>
       <Route exact path="/" component={Home}/>
       <Route exact path="/productlist/:brand" component={ProductList}/>
-      <Route exact path="/productlist/:keyword/:id" component={ProductDetails}/>
+      <Route exact path="/productlist/:brand/page/:pageNumber" component={ProductList}/>
+      <Route exact path="/productlist/:brand/:keyword/page/:pageNumber" component={ProductList}/>
+      <Route exact path="/productlist/:brand/:id" component={ProductDetails}/>
       <Route exact path="/cart" component={Cart}/>
       <Route exact path="/login" component={Login}/>
       <Route exact path="/register" component={Register}/>
@@ -54,7 +56,7 @@ const App = () => {
       <PrivateRoute exact path="/payment" component={Payment}/>
       <PrivateRoute exact path="/placeorder" component={PlaceOrder}/>
       <PrivateRoute exact path="/order/:id" component={Order}/>
-      <PrivateRoute exact path="/admin" component={AdminPage}/>
+      <PrivateRoute exact path="/admin/page/:pageNumber" component={AdminPage}/>
       <PrivateRoute exact path="/admin/createproduct"  component={CreateProduct}/>
       <PrivateRoute exact path="/admin/updateproduct/:id" component={UpdatePorduct}/>
      </Switch>   

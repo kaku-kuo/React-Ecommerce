@@ -1,14 +1,23 @@
-import React,{ useEffect } from 'react';
+import React,{ useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loadUser,userLogout } from '../actions/userActions';
 import { setAlert } from '../actions/alertActions';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { bounce } from 'react-animations';
+import styled, { keyframes } from 'styled-components';
 import Preloader from '../layout/Preloader';
 
+// For npunce animation
+const Bounce = styled.div`animation:2s ${keyframes`${bounce}`} infinite`;
 
 const Navbar = ({ user:{ token, userDe },cartItems, loadUser, userLogout, setAlert }) => {
+const [displayBallJs, setDisplayBallJs] = useState(false);
+const [displayBallKb, setDisplayBallKb] = useState(false);
+const [displayBallLbj, setDisplayBallLbj] = useState(false);
+const [displayBallRose, setDisplayBallJRose] = useState(false);
+
 
 //Keep user login 
 useEffect(() => {
@@ -29,7 +38,7 @@ const handleLogout = () => {
         <nav className="navbar navbar-light">
           <div>
            <Link to="/" className="navbar navbar-brand">
-             <FontAwesomeIcon className="basketballLogo" icon={['fas', 'basketball-ball']}/>
+             <FontAwesomeIcon className="basketballLogo mr-1" icon={['fas', 'basketball-ball']}/>
               HOOP CLUB
            </Link>
           </div>
@@ -51,7 +60,7 @@ const handleLogout = () => {
            {userDe ? 
             <div> 
             <a className="dropdown-item" href="/profile">Profile</a>
-             {userDe.isAdmin && <Link className="dropdown-item" to="/admin">Admin</Link>}
+             {userDe.isAdmin && <Link className="dropdown-item" to="/admin/page/1">Admin</Link>}
              <Link className="dropdown-item" to="#" onClick={handleLogout}>Log out</Link>
             </div>
              :  
@@ -59,34 +68,44 @@ const handleLogout = () => {
            </div>
           </div>       
           :
-          <Link className="signIn" to="/login">Login</Link>
-          }
+          <Link className="signIn" to="/login">Login</Link>}
           </div>
         </nav>
 
 
-        <ul className="category">
-           <li>             
-            <Link to="/productlist/jordan">
-            <FontAwesomeIcon className="basketballLogo" icon={['fas', 'basketball-ball']}/>     
+        <ul className="category">  
+           <li onMouseEnter={() => setDisplayBallJs(true)} onMouseLeave={() => setDisplayBallJs(false)}>
+           <Bounce>   
+            <FontAwesomeIcon style={{fontSize:"20px"}}  className={displayBallJs ? "basketballLogo":"basketballLogohide"} icon={['fas', 'basketball-ball']}/>
+           </Bounce>    
+            <Link to="/productlist/jordan/page/1">                        
              JORDAN
             </Link>            
            </li>
-           <li>
-            <Link to="/productlist/kobe">
+           <li onMouseEnter={() => setDisplayBallKb(true)} onMouseLeave={() => setDisplayBallKb(false)}>
+           <Bounce>   
+            <FontAwesomeIcon style={{fontSize:"20px"}}  className={displayBallKb ? "basketballLogo":"basketballLogohide"} icon={['fas', 'basketball-ball']}/>
+           </Bounce>  
+            <Link to="/productlist/kobe/page/1">
              KOBE
             </Link>            
            </li>  
-           <li>
-            <Link to="/productlist/lbj">
+           <li onMouseEnter={() => setDisplayBallLbj(true)} onMouseLeave={() => setDisplayBallLbj(false)}>
+           <Bounce>    
+            <FontAwesomeIcon style={{fontSize:"20px"}}  className={displayBallLbj ? "basketballLogo":"basketballLogohide"} icon={['fas', 'basketball-ball']}/>
+           </Bounce>    
+            <Link to="/productlist/lbj/page/1">
              LBJ
             </Link>            
            </li>  
-           <li>
-            <Link to="/productlist/drose">            
+           <li onMouseEnter={() => setDisplayBallJRose(true)} onMouseLeave={() => setDisplayBallJRose(false)}>
+           <Bounce>  
+            <FontAwesomeIcon style={{fontSize:"20px"}}  className={displayBallRose ? "basketballLogo":"basketballLogohide"} icon={['fas', 'basketball-ball']}/>
+           </Bounce>   
+            <Link to="/productlist/drose/page/1">            
              D.ROSE
             </Link>            
-           </li>    
+           </li>
          </ul> 
        </div>   
 
