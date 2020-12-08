@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { getProducts } from '../actions/productActions';
 import Paginate from '../layout/Paginate';
 
+
 const ProductList = ({ product:{ products, pages, page }, match, history, getProducts }) => {
 const [filterValue, setFilterValue]  = useState("");
 const pageNumber = match.params.pageNumber || 1;
@@ -31,19 +32,17 @@ const valueFromFilter = (value1, value2) => {
 useEffect(() => { 
   if(filterValue){ 
     getProducts(match.params.brand + filterValue, pageNumber);
-    history.push(`/productlist/${match.params.brand}/${filterValue}/page/${pageNumber}`);
-    console.log(filterValue)
+    history.push(`/productlist/${match.params.brand}/${filterValue}/page/${pageNumber}`);  
   }else{
     getProducts(match.params.brand, pageNumber);
     history.push(`/productlist/${match.params.brand}/page/${pageNumber}`);
-    console.log(filterValue)
   };
   //eslint-disable-next-line      
 }, [match.params.brand, filterValue, pageNumber]);
 
     return (
           products ?
-          <div className="container-fluid">
+          <div className="container-fluid">         
             <h3>Product Filter</h3>
             <div className="row">
               <ProductFilter getPorducts={getProducts} valueFromFilter={valueFromFilter}/>

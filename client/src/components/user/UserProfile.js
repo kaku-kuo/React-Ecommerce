@@ -9,7 +9,7 @@ import OrderListItems from '../order/OrderListItems';
 
 
 
-const UserProfile = ({ userDe , orders, loading,  userUpdate, userLogout, setAlert, history, getOrders }) => {
+const UserProfile = ({ userDe , orders, userUpdate, userLogout, setAlert, history, getOrders }) => {
 const [name, setName] = useState(localStorage.name);
 const [email, setEmail] = useState(localStorage.email);
 const [password, setPassword] = useState("");

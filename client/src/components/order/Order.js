@@ -5,11 +5,11 @@ import Preloader from '../layout/Preloader';
 import { connect } from 'react-redux';
 import { cleanCartItems } from '../actions/cartActions';
 import { getOrderDe, updateOrder } from '../actions/orderActions';
-import { getProducts, updateProduct } from '../actions/productActions';
+import { getAllProducts, updateProduct } from '../actions/productActions';
 
 
 
-const Order = ({ orderDe , success , userDe ,product, cleanCartItems, getOrderDe, updateOrder, updateProduct ,getProducts, match }) => {
+const Order = ({ orderDe , success , userDe ,product, cleanCartItems, getOrderDe, updateOrder, updateProduct ,getAllProducts, match }) => {
 const [deliverDay, setDeliverDay] = useState("");
 const [data, setData] = useState([]);
 const [arrIndex, setArrIndex] = useState([]);
@@ -22,11 +22,26 @@ useEffect(() =>{
 
  if(!orderDe || !product){
   getOrderDe(match.params.id);
-  getProducts(); 
+  getAllProducts(); 
  };
   console.log("FIRST EFFECT");
   // eslint-disable-next-line  
 },[])
+
+useEffect(() => {
+if(!orderDe) return;
+ if(orderDe.isDelivered){
+  const date = new Date(orderDe.updatedAt);
+  const dateToAdd = 3;
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate(); 
+  setDeliverDay(`${year}-${month}-${day + dateToAdd}`);   
+ };
+ console.log("for devivery date")
+// eslint-disable-next-line
+},[orderDe])
+
 
 useEffect(() => {
 if(!orderDe) return;
@@ -35,28 +50,28 @@ if(!orderDe) return;
     {
       switch(item.size){
       case "07.5":
-        setArrIndex(preValue => [...preValue, item.countInStock.indexOf(item.countInStock[0])]);  
+        setArrIndex(preValue => [...preValue, 0]);  
         break;    
       case "08.0":
-        setArrIndex(preValue => [...preValue, item.countInStock.indexOf(item.countInStock[1])]);  
+        setArrIndex(preValue => [...preValue, 1]);  
         break;    
       case "08.5":
-        setArrIndex(preValue => [...preValue, item.countInStock.indexOf(item.countInStock[2])]);  
+        setArrIndex(preValue => [...preValue, 2]);  
         break;   
       case "09.0":
-        setArrIndex(preValue => [...preValue, item.countInStock.indexOf(item.countInStock[3])]);  
+        setArrIndex(preValue => [...preValue, 3]);  
         break;  
       case "09.5": 
-        setArrIndex(preValue => [...preValue, item.countInStock.indexOf(item.countInStock[4])]);
+        setArrIndex(preValue => [...preValue, 4]);
         break;
       case "10.0":
-        setArrIndex(preValue => [...preValue, item.countInStock.indexOf(item.countInStock[5])]);
+        setArrIndex(preValue => [...preValue, 5]);
         break;
       case "10.5":
-        setArrIndex(preValue => [...preValue, item.countInStock.indexOf(item.countInStock[6])]);         
+        setArrIndex(preValue => [...preValue, 6]);         
         break;
       case "11.0":
-        setArrIndex(preValue => [...preValue, item.countInStock.indexOf(item.countInStock[7])]);  
+        setArrIndex(preValue => [...preValue, 7]);  
         break;       
       default:
         console.log(item);
@@ -68,9 +83,10 @@ if(!orderDe) return;
 
 
 useEffect(() => {
- if(!product) return; 
- // Looking fot specific stocks value by index, and set up for update
- product.products && orderDe && product.products.forEach(p => {
+  console.log(arrIndex);
+  if(!product) return; 
+  // Looking fot specific stocks value by index, and set up for update
+  product.products && orderDe && product.products.forEach(p => {
     if(orderDe.orderItems.length > num &&  p._id === orderDe.orderItems[num].product){
       p.countInStock[arrIndex[num]] = p.countInStock[arrIndex[num]] - orderDe.orderItems[num].qty;  
       num++
@@ -80,14 +96,14 @@ useEffect(() => {
   });
 console.log("THIRD EFFECT");
 // eslint-disable-next-line  
-},[arrIndex,product]);
+},[arrIndex, product]);
 
 
 
 console.log(`conponent re-render`)
 const handleSubmit = (e) => { 
-      e.preventDefault();
-       // Update pay status
+      e.preventDefault();     
+      //  Update pay status
        updateOrder(match.params.id,{isPaid:true});
        // Actuall update stocks in DB
        data.forEach(item => updateProduct({countInStock:item.countInStock},item.id)); 
@@ -95,14 +111,7 @@ const handleSubmit = (e) => {
        // Set up fake delivery date 
        setTimeout(() => {
         updateOrder(match.params.id,{isDelivered:true});
-       },3000) 
-  
-       const date = new Date(orderDe.updatedAt);
-       const dateToAdd = 3;
-       const year = date.getFullYear();
-       const month = date.getMonth() + 1;
-       const day = date.getDate(); 
-       setDeliverDay(`${year}-${month}-${day + dateToAdd}`);  
+       },3000)  
 };    
 
 
@@ -157,7 +166,7 @@ const handleSubmit = (e) => {
          </div>
 
          <div className="price" style={{width:"350px"}}>
-          <div className="price-list">
+          <div className="price-list shadow p-3 mb-5 bg-white rounded">
            <h2 className="summary-title" style={{letterSpacing:"2px"}}>ORDER SUMMARY</h2>
            <div className="summary-details">
             <div>Items</div>   
@@ -198,7 +207,7 @@ Order.propTypes = {
   getOrderDe:PropTypes.func.isRequired,
   updateOrder:PropTypes.func.isRequired,
   updateProduct:PropTypes.func.isRequired,
-  getProducts:PropTypes.func.isRequired
+  getAllProducts:PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -210,4 +219,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect( mapStateToProps , { cleanCartItems, getOrderDe, updateOrder, updateProduct, getProducts })(Order);
+export default connect( mapStateToProps , { cleanCartItems, getOrderDe, updateOrder, updateProduct, getAllProducts })(Order);

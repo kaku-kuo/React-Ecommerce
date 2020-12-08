@@ -118,8 +118,8 @@ const handleQty = e => {
 };
 
     return (
-        <div className="cart-item">
-          <div className="item-img-card">
+        <div className="cart-item shadow mb-5 bg-white rounded">
+          <div className="item-img-card d-flex align-items-center">
             <img className="item-img" src={cartItem.image} alt="item-img"/>
           </div>
           <div className="item-details-card">

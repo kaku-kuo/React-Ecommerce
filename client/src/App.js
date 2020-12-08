@@ -34,7 +34,7 @@ library.add(far, fab, fas);
 
 const App = () => {
  
-  return (
+  return ( 
   <Provider store={store}> 
    <BrowserRouter> 
     <div className="App">
@@ -66,7 +66,10 @@ const App = () => {
     <Footer/>   
    </BrowserRouter>
   </Provider>  
+  
   );
 }
+
+
 
 export default App;

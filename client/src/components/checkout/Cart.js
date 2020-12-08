@@ -18,11 +18,8 @@ setTotalPrice(t.toLocaleString())
 
 
     return (
-      <div>
-
-        <div className="container">   
-         <h1 className="display-5">My Cart</h1>   
-        </div>
+      <div className="container">
+       <h1 className="display-5">My Cart</h1>   
        {cartItems.length === 0 ? <h1 className="text-center">Cart is empty</h1>
         : 
         <div className="cart-ordersummary-page">
@@ -30,7 +27,7 @@ setTotalPrice(t.toLocaleString())
           {cartItems.map(cartItem => <CartItem cartItem={cartItem} key={cartItem.identifier}/>)}        
          </div> 
           
-          <div className="order-summary">
+          <div className="order-summary shadow p-3 mb-5 bg-white rounded">
 
            <div>
             <h3 className="summary-title">Order Summary</h3> 

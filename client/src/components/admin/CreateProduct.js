@@ -28,7 +28,7 @@ const [stocks, setStocks] = useState({
 useEffect(() => {
 if(!newProduct) return;
 setAlert("New product been created!", "success");
-history.push('/admin');
+history.push('/admin/page/1');
 // eslint-disable-next-line
 },[newProduct])
 
@@ -65,7 +65,7 @@ const handleSubmit = e => {
    e.preventDefault();
    createNewProduct({
        user:userDe && userDe._id,
-       name:name,
+       name:name.toUpperCase(),
        price:Number(price),
        brand:brand,
        image:image,
@@ -80,8 +80,8 @@ const handleSubmit = e => {
         stocks.index6,
         stocks.index7,
     ]
-  });
-  window.scrollTo(0,0);
+  });    
+    window.scrollTo(0,0);
 };
 
 
@@ -99,7 +99,12 @@ const handleSubmit = e => {
            </div>
            <div className="form-group">
             <label htmlFor="brand">Brand</label>
-            <input type="text" className="form-control" name="brand" placeholder="Enter brand" id="brand" onChange={e => setBrand(e.target.value)}/>
+            <select className="form-control" name="brand" id="brand" onChange={e => setBrand(e.target.value)}>
+             <option value="jordan">Air Jordan</option>
+             <option value="kobe">Kobe Bryant</option>
+             <option value="lbj">LeBron James</option>
+             <option value="drose">Derrick Rose</option>
+            </select>
            </div>
            <div className="form-group">
             <label htmlFor="image">Product Image</label>

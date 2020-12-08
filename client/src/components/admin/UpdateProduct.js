@@ -121,7 +121,12 @@ const handleSubmit = e => {
            </div>
            <div className="form-group">
             <label htmlFor="brand">Brand</label>
-            <input type="text" className="form-control" name="brand" value={brand} placeholder="Enter brand" id="brand" onChange={e => setBrand(e.target.value)}/>
+            <select className="form-control" value={brand} name="brand" id="brand" onChange={e => setBrand(e.target.value)}>
+             <option value="jordan">Air Jordan</option>
+             <option value="kobe">Kobe Bryant</option>
+             <option value="lbj">LeBron James</option>
+             <option value="drose">Derrick Rose</option>
+            </select>
            </div>
            <div className="form-group">
             <label htmlFor="image">Product Image</label>

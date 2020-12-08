@@ -104,8 +104,8 @@ const handleSubmit = e => {
     return (
         productDe ?
        <div className="container">     
-        <div className="product-details d-flex">
-         <div className="row align-items-center" style={{paddingRight:"1.5rem"}}>         
+        <div className="product-details d-flex shadow p-3 mb-5 bg-white rounded">
+         <div className="row align-items-center">         
           <img className="details-img" src={productDe.image} alt="detaolsimg"/>           
          </div> 
          <div className="rightdetails ">   
@@ -205,14 +205,14 @@ const handleSubmit = e => {
           </div>    
          
           </div>
-           <input type="submit" value="ADD TO CART" className="btn btn-warning itemsubmitbtn" 
+           <input type="submit" value="ADD TO CART" className="btn btn-warning font-weight-bold" 
            data-toggle={showModal ? "modal" : ""} data-target="#Cart-Item-Modal"/>
          </form>
          </div>
          
         </div>
 
-        <div className="reviews">
+        <div className="reviews shadow p-3 mb-5 bg-white rounded">
          <div className="d-flex justify-content-between">
           <h2 style={{margin:"10px 15px"}}>REVIEWS</h2>
           {!token ?

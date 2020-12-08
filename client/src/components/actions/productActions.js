@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
     GET_PRODUCTS,
+    GET_ALL_PRODUCTS,
     GET_PRODUCT,
     REMOVE_PRODUCT,
     UPDATE_PRODUCT_SUCCESS,
@@ -19,10 +20,10 @@ import {
 export const getProducts = (keyword, pageNumber = "") => async dispatch => {
     try {     
         const res = await axios.get(`/api/products?keyword=${keyword}&pageNumber=${pageNumber}`);
-        dispatch({
+          dispatch({
             type:GET_PRODUCTS,
             payload:res.data
-        });
+         });       
         setLoading();
     } catch (err) {
         dispatch({
@@ -37,6 +38,23 @@ export const getProductDe = id => async dispatch => {
         const res = await axios.get(`/api/products/details/${id}`);
         dispatch({
             type:GET_PRODUCT,
+            payload:res.data
+        });
+        setLoading();
+    } catch (err) {
+        dispatch({
+            type:PRODUCTS_ERROR,
+            payload:err.response
+        });
+    }
+}
+
+// Get all products
+export const getAllProducts = () => async dispatch => {
+    try {     
+        const res = await axios.get("/api/products/all");
+        dispatch({
+            type:GET_ALL_PRODUCTS,
             payload:res.data
         });
         setLoading();

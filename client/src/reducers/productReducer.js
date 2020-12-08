@@ -1,5 +1,6 @@
 import {
     GET_PRODUCTS,
+    GET_ALL_PRODUCTS,
     GET_PRODUCT,
     REMOVE_PRODUCT,
     UPDATE_PRODUCT_SUCCESS,
@@ -33,6 +34,12 @@ export default(state = initialState, action) => {
             pages:action.payload.pages,
             page:action.payload.page, 
             loading:true  
+        };
+        case GET_ALL_PRODUCTS:
+          return {
+            ...state,
+            products:action.payload,
+            laoding:true
         };
         case GET_TOP_PRODUCTS_SUCCESS:
           return {

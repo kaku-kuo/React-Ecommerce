@@ -1,6 +1,6 @@
 import React,{ Fragment } from 'react';
 import Slide from './Slide';
-import NewArrivals from './NewArrivals';
+import TopSneakers from './TopSneakers';
 
 
 const Home = () => {
@@ -12,7 +12,7 @@ const Home = () => {
         <div className="newarrivalstitle">  
          <div >Top Sneakers</div>  
         </div>  
-         <NewArrivals/>  
+         <TopSneakers/>  
        </Fragment>  
     )
 }

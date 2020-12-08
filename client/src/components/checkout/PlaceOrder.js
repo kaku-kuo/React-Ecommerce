@@ -60,7 +60,7 @@ const SubmitOrder = e => {
          <CheckOutSteps step1 step2 step3 step4/>    
         </div>
 
-        <div className="cart-ordersummary-page">
+        <div className="cart-ordersummary-page container">
 
           <div className="cart-item-list">
 
@@ -92,7 +92,7 @@ const SubmitOrder = e => {
          </div>        
         </div>
 
-          <div className="order-summary">
+          <div className="order-summary shadow p-3 mb-5 bg-white rounded">
 
            <div>
             <h3 className="summary-title">Order Summary</h3> 

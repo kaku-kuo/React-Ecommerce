@@ -23,8 +23,8 @@ let size095 = null;
 let size100 = null;
 let size105 = null;
 let size110 = null;
-if(req.query.keyword.includes("jordan")){ filterObj.brand = { $eq:"Jordan" }};
-if(req.query.keyword.includes("kobe")){ filterObj.brand = { $eq:"Kobe" }};
+if(req.query.keyword.includes("jordan")){ filterObj.brand = { $eq:"jordan" }};
+if(req.query.keyword.includes("kobe")){ filterObj.brand = { $eq:"kobe" }};
 if(req.query.keyword.includes("lbj")){  filterObj.brand = { $eq:"lbj" }};
 if(req.query.keyword.includes("drose")){  filterObj.brand = { $eq:"drose" }};
 if(req.query.keyword.includes("under")){ 
@@ -113,7 +113,7 @@ if(req.query.keyword.includes("size110")){
     } catch (err) {
          console.error(err.message);
          res.status(500).send("Server error"); 
-    }
+    };
 });
 
 
@@ -122,16 +122,28 @@ if(req.query.keyword.includes("size110")){
 // @access    Public 
 router.get('/details/:id', async(req,res) => {
 
-    try {
+    try {   
         const product = await Product.findById(req.params.id);
-        res.json(product);
+        res.json(product); 
     } catch (err) {
         console.error(err.message);
         res.status(500).send("Server Error")
-    }
+    };
 });
 
+// @route     GET api/products
+// @desc      Get all products for order
+// @access    Public 
+router.get('/all', async(req,res) => {
 
+    try {
+        const products = await Product.find({})
+        return res.json(products);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error")
+    };
+});
 
 // @route     GET api/products
 // @desc      Get top rated products
