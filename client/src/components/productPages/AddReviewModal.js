@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import Rating from '@material-ui/lab/Rating';
 import { getProductDe, addReview, clearErrorReview } from '../actions/productActions';
 
-const AddReviewModal = ({ productDe, reviewAdded, error, addReview, clearErrorReview,getProductDe }) => {
+const AddReviewModal = ({ productDe, reviewAdded, error, addReview, clearErrorReview, getProductDe }) => {
 const [value, setValue] = useState(0);
 const [ratingDes, setRatingDes] = useState("");
 const [content, setContent] = useState("");
 const [msg, setMsg] = useState(null);
 
-// Display different description by rating point
+// Display different rating description
 useEffect(() => {
 if(value === 0) return; 
 switch(value){
@@ -49,7 +49,7 @@ if(reviewAdded){
 },[error, reviewAdded]);
 
 
-// Handle clean msg and renew page after write review
+// Handle clean msg and renew page after reviewed
 const handleClick = () => {
   getProductDe(productDe && productDe._id);
   clearErrorReview();

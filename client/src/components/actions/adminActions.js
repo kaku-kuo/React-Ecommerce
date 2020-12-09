@@ -32,5 +32,5 @@ export const createNewProduct = data => async dispatch => {
 export const cleanNewProduct = () => dispatch => {
    dispatch({
      type:CLEAN_NEW_CREATE_PRODUCT
-   })
+   });
 };

@@ -8,14 +8,14 @@ const OrderItem = ({ cartItem }) => {
          <div className="list-group-item">
           <div className="d-flex justify-content-between">
           <Link to={`/productlist/${cartItem._id}`}> 
-          <div className="col py-4">   
+          <div className="col">   
            <img src={cartItem.image} alt="sneakers" style={{width:"90px",height:"auto"}}/>
           </div> 
           </Link>    
-           <div className="text-center col-4 py-4">{cartItem.name}</div>
-           <div className="text-center col py-4">{cartItem.size}</div>
-           <div className="text-center col-1 py-4">{cartItem.qty}</div>
-           <div className="text-center col py-4">${(cartItem.qty*cartItem.price).toLocaleString()}</div>
+           <div className="text-center col-4">{cartItem.name}</div>
+           <div className="text-center col">{cartItem.size}</div>
+           <div className="text-center col-1">{cartItem.qty}</div>
+           <div className="text-center col">${(cartItem.qty*cartItem.price).toLocaleString()}</div>
           </div>
          </div>
          <hr/>
@@ -25,6 +25,6 @@ const OrderItem = ({ cartItem }) => {
 
 OrderItem.propTypes = {
     cartItem:PropTypes.object.isRequired
-}
+};
 
 export default OrderItem;

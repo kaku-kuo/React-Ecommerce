@@ -25,6 +25,7 @@ const [stocks, setStocks] = useState({
     index7:0,
 });
 
+// Fill in all product information
 useEffect(() => {
 if(!productDe || productDe._id !== match.params.id){
   getProductDe(match.params.id);
@@ -49,7 +50,7 @@ if(!productDe || productDe._id !== match.params.id){
 // eslint-disable-next-line
 },[productDe]);
 
-
+// Upload images
 const handleUploadFile = async (e) => {
      const file = e.target.files[0];
      const formData = new FormData();

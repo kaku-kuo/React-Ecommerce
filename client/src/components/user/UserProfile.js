@@ -8,7 +8,6 @@ import Preloader from '../layout/Preloader';
 import OrderListItems from '../order/OrderListItems';
 
 
-
 const UserProfile = ({ userDe , orders, userUpdate, userLogout, setAlert, history, getOrders }) => {
 const [name, setName] = useState(localStorage.name);
 const [email, setEmail] = useState(localStorage.email);
@@ -28,7 +27,7 @@ useEffect(() => {
    setOrderList(list);
   } 
 // eslint-disable-next-line
-},[orders,userDe]);
+},[orders, userDe]);
 
 
 
@@ -50,16 +49,17 @@ const handleSubmit = e => {
            userLogout(); 
          }else{
            setAlert("Updated successfully!", "success");    
-           userUpdate({name,email,password,password2}, userDe._id);  
+           userUpdate({ name, email, password, password2 }, userDe._id);  
          }    
        
         } 
     }   
-}
+};
 
     return (
       userDe && orders ? 
-        <div className="d-flex" style={{margin:"0 60px"}}>
+       <div className="cpntainer">
+        <div className="d-md-flex" style={{margin:"0 60px"}}>
 
            <form className="update-user-form" onSubmit={handleSubmit}>            
               <h3 className="shipping-title">USER PROFILE</h3> 
@@ -105,6 +105,7 @@ const handleSubmit = e => {
              }
             </div>
         </div>
+       </div>
       :
       <Preloader/>  
     )

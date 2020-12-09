@@ -21,7 +21,7 @@ export default(state = initialState, action) => {
         
         const existItem = state.cartItems.find(x => x.identifier === item.identifier)
 
-        if(existItem){
+    if(existItem){
          return{
          ...state,
          cartItems:state.cartItems.map(x => x.identifier === item.identifier ? item : x)
@@ -30,8 +30,8 @@ export default(state = initialState, action) => {
          return {
          ...state,
          cartItems:[...state.cartItems, item]
-         } 
-        }
+        } 
+    };
     case EDIT_ITEM_FROM_CART:
        return {
          ...state,
@@ -59,5 +59,5 @@ export default(state = initialState, action) => {
     };        
        default:
         return state  
-    }
-}
+    };
+};

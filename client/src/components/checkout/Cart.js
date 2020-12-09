@@ -1,4 +1,4 @@
-import React,{ useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -11,36 +11,34 @@ useEffect(() => {
 // Add total price
 const PriceArr = cartItems.map(item => item.price*item.qty);
 const t = PriceArr.reduce((total, currVal) => { return total + currVal },0);
-setTotalPrice(t.toLocaleString())
+setTotalPrice(t.toLocaleString());
 
 },[cartItems]);
-
-
 
     return (
       <div className="container">
        <h1 className="display-5">My Cart</h1>   
        {cartItems.length === 0 ? <h1 className="text-center">Cart is empty</h1>
         : 
-        <div className="cart-ordersummary-page">
-         <div className="cart-item-list"> 
+        <div className="cart-ordersummary-page d-md-flex justify-content-between">
+         <div className="cart-item-list col-md"> 
           {cartItems.map(cartItem => <CartItem cartItem={cartItem} key={cartItem.identifier}/>)}        
          </div> 
           
-          <div className="order-summary shadow p-3 mb-5 bg-white rounded">
+          <div className="order-summary col-md-3 shadow p-3 mb-5 bg-white rounded">
 
            <div>
             <h3 className="summary-title">Order Summary</h3> 
            </div>
            <div className="summary">
-              <dt className="summary-list">SUBTOTAL:</dt>
-              <dd className="value">${totalPrice}</dd>
-              <dd>{`${cartItems.length} ${cartItems.length === 1 ? "item":"items"}`}</dd> 
+            <dt className="summary-list">SUBTOTAL:</dt>
+            <dd className="value">${totalPrice}</dd>
+            <dd>{`${cartItems.length} ${cartItems.length === 1 ? "item":"items"}`}</dd> 
            </div>
            <hr/>
            <div className="summary">
-              <dt className="summary-list">ESTIMATED TOTAL:</dt>
-              <dd className="value">${totalPrice}</dd> 
+            <dt className="summary-list">ESTIMATED TOTAL:</dt>
+            <dd className="value">${totalPrice}</dd> 
            </div>
            <hr/>
            <div>
@@ -49,7 +47,8 @@ setTotalPrice(t.toLocaleString())
            <Link to="/shipping">        
             <button className="btn btn-warning checkout-btn">CHECKOUT</button>  
            </Link>
-          </div>    
+          </div> 
+
           </div>
 
         </div>
@@ -60,12 +59,11 @@ setTotalPrice(t.toLocaleString())
 
 Cart.propTypes = {
    cartItems:PropTypes.array
-}
-
+};
 
 const mapStateToProps = state => ({
    cartItems:state.cart.cartItems
 });
 
 
-export default connect(mapStateToProps,{})(Cart);
+export default connect(mapStateToProps, {})(Cart);

@@ -48,7 +48,7 @@ switch(review.rating){
             <span><FontAwesomeIcon className={star4 ? "star":"nostar"} icon={['fas', 'star']}/></span>  
             <span><FontAwesomeIcon className={star5 ? "star":"nostar"} icon={['fas', 'star']}/></span>
            </div>
-           <div>2020-11-25</div>                        
+           <div>{review.createdAt.substring(0, 10)}</div>                        
          </div>
          <div className="review-details">
           <p>{review.comment}</p>  

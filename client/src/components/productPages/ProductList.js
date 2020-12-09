@@ -16,7 +16,7 @@ const pageNumber = match.params.pageNumber || 1;
 const valueFromFilter = (value1, value2) => {
         // Add condition or remove condition by tick off
       if(value2){
-        // Only show either under5000 or over5000 in url
+        // Only show either under5000 or over5000 in URL
         if(filterValue.includes("under5000") && value1 === "over5000"){
           setFilterValue(pre => pre.replace("under5000", ""));
         };
@@ -70,11 +70,11 @@ useEffect(() => {
 ProductList.propTypes = {
   product:PropTypes.object.isRequired,
   getProducts:PropTypes.func.isRequired
-}
+};
 
 
 const mapStateToProps = state => ({
    product:state.product
-})
+});
 
-export default connect(mapStateToProps,{ getProducts })(ProductList);
+export default connect(mapStateToProps, { getProducts })(ProductList);

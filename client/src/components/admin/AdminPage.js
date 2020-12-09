@@ -56,6 +56,9 @@ if(newProduct){
 AdminPage.propTypes = {
    products:PropTypes.array,
    newProduct:PropTypes.object,
+   page:PropTypes.number,
+   pages:PropTypes.number,
+   userDe:PropTypes.object,
    getProducts:PropTypes.func.isRequired,
    cleanNewProduct:PropTypes.func.isRequired
 };

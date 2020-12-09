@@ -12,13 +12,13 @@ import {
 
 
 // Create a new order
-export const createNewOrder = (orderData) => async dispatch => {
+export const createNewOrder = orderData => async dispatch => {
+
     const config = {
         headers:{
             "Content-Type":"application/json"
         }
-    }
-  
+    };
     try {
         dispatch({ type:CREATE_NEW_ORDER_REQUEST });
 
@@ -35,14 +35,14 @@ export const createNewOrder = (orderData) => async dispatch => {
             payload:err.response
         });
     }
-}
+
+};
 
 // Get all orders
 export const getOrders = () => async dispatch => {
-    try {
-        
-        const res = await axios.get('/api/orders/');
 
+    try {   
+        const res = await axios.get('/api/orders/');
         dispatch({
             type:GET_ORDERS,
             payload:res.data
@@ -53,15 +53,15 @@ export const getOrders = () => async dispatch => {
             payload:err.response
         });
     }
-}
+
+};
 
 
 // Get a order
 export const getOrderDe = id => async dispatch => {
-    try {
-        
-        const res = await axios.get(`/api/orders/${id}`);
 
+    try {      
+        const res = await axios.get(`/api/orders/${id}`);
         dispatch({
             type:GET_ORDER,
             payload:res.data
@@ -72,15 +72,15 @@ export const getOrderDe = id => async dispatch => {
             payload:err.response
         });
     }
-}
+
+};
 
 
 // Update order stocks, paid and delivery status
 export const updateOrder = (id,data) => async dispatch => {
-    try {
-        
-        const res = await axios.put(`/api/orders/${id}`, data);
-  
+
+    try {   
+        const res = await axios.put(`/api/orders/${id}`, data); 
         dispatch({
             type:UPDATE_ORDER_SUCCESS,
             payload:res.data
@@ -91,4 +91,5 @@ export const updateOrder = (id,data) => async dispatch => {
             payload:err.response
         });
     }
-}
+    
+};

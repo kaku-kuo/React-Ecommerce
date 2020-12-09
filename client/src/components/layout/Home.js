@@ -6,11 +6,9 @@ import TopSneakers from './TopSneakers';
 const Home = () => {
     return (
        <Fragment>
-        <div className="container">
          <Slide/>         
-        </div>
-        <div className="newarrivalstitle">  
-         <div >Top Sneakers</div>  
+        <div className="topSneakers">  
+         <div>Top Sneakers</div>  
         </div>  
          <TopSneakers/>  
        </Fragment>  

@@ -4,22 +4,18 @@ import { connect } from 'react-redux';
 import { saveShippingAddress } from '../actions/cartActions';
 import CheckOutSteps from '../layout/CheckOutSteps';
 
-const Shipping = (props) => {
-const [shippingAddress,setShippingAddress] = useState({
-    address:props.shippingAddress.address,
-    city:props.shippingAddress.city,
-    postalCode:props.shippingAddress.postalCode,
-    country:props.shippingAddress.country
-});
+const Shipping = ({ saveShippingAddress, shippingAddress, history }) => {
+// Set default value from localstorage 
+const [address, setAddress] = useState(shippingAddress.address);    
+const [city, setCity] = useState(shippingAddress.city);    
+const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);    
+const [country, setCountry] = useState(shippingAddress.country);    
 
-const handleAddressChange = e => {
-    setShippingAddress({...shippingAddress,[e.target.name]:e.target.value});
-};
 
 const handleSubmitAddress = e => {
     e.preventDefault();
-    props.saveShippingAddress(shippingAddress);
-    props.history.push("/payment");
+    saveShippingAddress({ address, city, postalCode, country });
+    history.push("/payment"); 
 };
     return (
         <div className="container">
@@ -31,19 +27,19 @@ const handleSubmitAddress = e => {
              <h3 className="shipping-title">SHIPPING</h3> 
               <div className="form-group">
                <label htmlFor="address">Address</label>
-               <input type="text" className="form-control" name="address" value={shippingAddress.address} placeholder="Enter address" id="address" onChange={handleAddressChange}/>
+               <input type="text" className="form-control" name="address" value={address} placeholder="Enter address" id="address" onChange={e => setAddress(e.target.value)}/>
               </div>
               <div className="form-group">
                <label htmlFor="city">City</label>
-               <input type="text" className="form-control" name="city" value={shippingAddress.city} placeholder="Enter city" id="city" onChange={handleAddressChange}/>
+               <input type="text" className="form-control" name="city" value={city} placeholder="Enter city" id="city" onChange={e => setCity(e.target.value)}/>
               </div>
               <div className="form-group">
                <label htmlFor="postalcode">Postal code</label>
-               <input type="text" className="form-control" name="postalCode" value={shippingAddress.postalCode} placeholder="Enter post code" id="postalcode" onChange={handleAddressChange}/>
+               <input type="text" className="form-control" name="postalCode" value={postalCode} placeholder="Enter post code" id="postalcode" onChange={e => setPostalCode(e.target.value)}/>
               </div>
               <div className="form-group">
                <label htmlFor="country">Country</label>
-               <input type="text" className="form-control" name="country" value={shippingAddress.country} placeholder="Enter country" id="country" onChange={handleAddressChange}/>
+               <input type="text" className="form-control" name="country" value={country} placeholder="Enter country" id="country" onChange={e => setCountry(e.target.value)}/>
               </div>           
               <input type="submit" className="btn btn-warning" value="CONTINUE"/>
             </form>

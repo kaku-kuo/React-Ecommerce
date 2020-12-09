@@ -30,7 +30,7 @@ const PriceArr = cartItems.map(item => item.price*item.qty);
 const t = PriceArr.reduce((total, currVal) => { return total + currVal },0);
 setSubtotal(t.toLocaleString());
 
-// Set sjipping price
+// Set shipping price
 if(t > 5000){
   setShipping(200);
 }else{
@@ -47,7 +47,7 @@ if(success){
 };
 
 // eslint-disable-next-line
-},[cartItems,subtotal,shipping,success]);
+},[cartItems, subtotal, shipping, success]);
 
 const SubmitOrder = e => {
   e.preventDefault();
@@ -55,14 +55,13 @@ const SubmitOrder = e => {
 };
 
     return (
-      <div>
-        <div className="container">  
-         <CheckOutSteps step1 step2 step3 step4/>    
-        </div>
+      <div className="container">
+      
+         <CheckOutSteps step1 step2 step3 step4/>   
 
-        <div className="cart-ordersummary-page container">
+        <div className="cart-ordersummary-page d-lg-flex justify-content-around">
 
-          <div className="cart-item-list">
+          <div className="cart-item-list mr-md-2">
 
            <h2>SHIPPING</h2>
            <div className="my-3" style={{fontSize:"20px"}}>
@@ -76,18 +75,6 @@ const SubmitOrder = e => {
            <hr/>
            <h2>ORDER ITEMS</h2>  
          <div className="my-3 order-item-list">
-      
-         <div className="list-group list-group-flush">
-         <div className="list-group-item">
-          <div className="d-flex justify-content-between">
-           <div style={{width:"90px"}}/>   
-           <div className="text-center col-4"/>
-           <div className="text-center font-weight-bold col">Size</div>
-           <div className="text-center font-weight-bold col-1" style={{position:"relative",right:"5px"}}>Qty</div>
-           <div className="text-center font-weight-bold col">Price</div>
-          </div>
-         </div>    
-        </div>
           {cartItems.map(item => <OrderItem cartItem={item} key={item.identifier}/>)} 
          </div>        
         </div>

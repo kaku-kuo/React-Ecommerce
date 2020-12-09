@@ -16,14 +16,14 @@ import {
 
 // User login
 export const userLogin = formData => async dispatch => {
+
      const config = {
          headers:{
              "Content-Type":"application/json"
          }
-     }
+     };
      try {
          const res = await axios.post('/api/auth', formData, config);
-  
          dispatch({
              type:LOGIN_SUCCESS,
              payload:res.data
@@ -35,24 +35,27 @@ export const userLogin = formData => async dispatch => {
              payload:err.response.data.msg
          });
      }
-}
+};
 
 // User logout
 export const userLogout = () => dispatch => {  
+
     localStorage.removeItem("token");    
     localStorage.removeItem("name");  
         dispatch({
             type:USER_LOGOUT
         });
-}
+
+};
 
 // User register
-export const userRegister = (formData) => async dispatch => {
+export const userRegister = formData => async dispatch => {
+
     const config = {
         headers:{
             "Content-Type":"application/json"
         }
-    }
+    };
     try {
         const res = await axios.post('api/users', formData, config);
 
@@ -68,17 +71,16 @@ export const userRegister = (formData) => async dispatch => {
         });
     }
    
-}
+};
 
 // User update
 export const userUpdate = (formData,id) => async dispatch => {
-
 
     const config = {
         headers:{
             "Content-Type":"application/json"
         }
-    }
+    };
     try {  
         const res = await axios.put(`api/users/profile/${id}`, formData, config);
         dispatch({
@@ -92,13 +94,13 @@ export const userUpdate = (formData,id) => async dispatch => {
             payload:err.response  
         });
     }
- 
-   
-}
+  
+};
 
 
 // Load user
 export const loadUser = () => async dispatch => {
+
     if(localStorage.token){
       setAuthToken(localStorage.token);
        try {
@@ -109,9 +111,9 @@ export const loadUser = () => async dispatch => {
        }
     }
     
-}
+};
 
 // Clear erroe
 export const clearError = () => dispatch => {
     dispatch({type:CLEAR_ERROR})
-}
+};

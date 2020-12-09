@@ -18,6 +18,7 @@ import {
 
 // Get different products by brand, price...etc
 export const getProducts = (keyword, pageNumber = "") => async dispatch => {
+
     try {     
         const res = await axios.get(`/api/products?keyword=${keyword}&pageNumber=${pageNumber}`);
           dispatch({
@@ -31,9 +32,12 @@ export const getProducts = (keyword, pageNumber = "") => async dispatch => {
             payload:err.response
         });
     }
-}
+
+};
+
 // Get a product
 export const getProductDe = id => async dispatch => {
+
     try {     
         const res = await axios.get(`/api/products/details/${id}`);
         dispatch({
@@ -47,10 +51,12 @@ export const getProductDe = id => async dispatch => {
             payload:err.response
         });
     }
-}
+
+};
 
 // Get all products
 export const getAllProducts = () => async dispatch => {
+
     try {     
         const res = await axios.get("/api/products/all");
         dispatch({
@@ -64,10 +70,12 @@ export const getAllProducts = () => async dispatch => {
             payload:err.response
         });
     }
-}
+
+};
 
 // Get top rated products
 export const getTopProducts = () => async dispatch => {
+
     try {
         const res = await axios.get("/api/products/top");
         dispatch({
@@ -81,10 +89,12 @@ export const getTopProducts = () => async dispatch => {
             payload:err.response
         });
     }
+
 };
 
 // Update product
 export const updateProduct = (data,id) => async dispatch => {
+
     try {
         const config = {
             headers:{
@@ -104,11 +114,12 @@ export const updateProduct = (data,id) => async dispatch => {
         });
     }
 
-}
+};
 
 
 // Remove product
 export const removeProduct = id => async dispatch => {
+
     try {
        axios.delete(`/api/products/${id}`);
        dispatch({
@@ -126,6 +137,7 @@ export const removeProduct = id => async dispatch => {
 
 
 export const addReview = (productId, formData) => async dispatch => {
+
      try {
         const config = {
             headers:{
@@ -149,13 +161,17 @@ export const addReview = (productId, formData) => async dispatch => {
 
 
 export const clearErrorReview = () => dispatch => {
+
      dispatch({
          type:CLEAR_REVIEW_ERROR
      });
+
 };
 
 export const setLoading = () => {
+
     return {
         type:SET_LOADING
     };
+    
 };

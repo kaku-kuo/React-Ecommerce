@@ -7,7 +7,7 @@ const ProductItem = ({ product }) => {
 
     return (  
     
-         <div className="col-sm-3 mb-4">
+         <div className="col-lg-3 col-md-4 col-sm-6 mb-4">
           <Link to={`/productlist/${product.brand.toLowerCase()}/${product._id}`} style={{color:"black",textDecoration:"none"}}>    
           <div className="each-product">
 

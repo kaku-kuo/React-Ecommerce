@@ -6,18 +6,16 @@ import { removeItemFromCart,editItemFromCart } from '../actions/cartActions';
 
 
 const CartItem = ({ cartItem, removeItemFromCart, editItemFromCart }) => {
-
 const [editItemBtn, setEditItemBtn] = useState(false);
 const [forEdit, setForEdit] = useState(cartItem);
 const [num, setNum] = useState(0);
 const [arr, setArr] = useState([]);
 
-
 const handleRemoveCartItem = () => {
   removeItemFromCart(cartItem.identifier)
 };
 
-
+//Display dynamic sneakers stocks if change size
 useEffect(() => {
 
 if(num === 0 && arr.length === 0){
@@ -50,13 +48,14 @@ if(num === 0 && arr.length === 0){
        setNum("")        
  };
 }
-for(let i = 1; i <= num;i++){ 
+// Set up dynamic QTY number
+// Num is for how many times for loop running, Also Num = sneakers stocks
+for(let i = 1; i <= num; i++){ 
     arr.push(i) 
-}
-setForEdit({...cartItem,size:forEdit.size});
-
+};
+setForEdit({ ...cartItem, size:forEdit.size });
 // eslint-disable-next-line
-}, [num,arr])
+}, [num, arr])
 
 
 // Show update fields
@@ -79,6 +78,7 @@ const handleCartItemUpdate = () => {
 };
 
 const handleSize = e => {
+// Reset dynamic QTY number 
 if(arr.length > 0){
   setArr([])
 };
@@ -110,7 +110,7 @@ if(arr.length > 0){
     default:
        setNum("")        
  };
- setForEdit({...forEdit,[e.target.name]:e.target.value});
+ setForEdit({ ...forEdit,[e.target.name]:e.target.value });
 };
 
 const handleQty = e => {
@@ -118,7 +118,7 @@ const handleQty = e => {
 };
 
     return (
-        <div className="cart-item shadow mb-5 bg-white rounded">
+        <div className="cart-item d-md-flex shadow mb-5 bg-white rounded">
           <div className="item-img-card d-flex align-items-center">
             <img className="item-img" src={cartItem.image} alt="item-img"/>
           </div>
@@ -180,7 +180,7 @@ CartItem.propTypes = {
    cartItem:PropTypes.object,
    removeItemFromCart:PropTypes.func.isRequired,
    editItemFromCart:PropTypes.func.isRequired
-}
+};
 
 
-export default connect(null,{ removeItemFromCart, editItemFromCart })(CartItem);
+export default connect(null, { removeItemFromCart, editItemFromCart })(CartItem);

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 
 
-const Alert = ({alert}) => {
+const Alert = ({ alert }) => {
 
     return (
 
@@ -21,10 +21,10 @@ const Alert = ({alert}) => {
 
 Alert.propTypes = {
     alert:PropTypes.array.isRequired
-}
+};
 
 const mapStateToProps = state => ({
     alert:state.alert
-})
+});
 
-export default connect(mapStateToProps,null)(Alert);
+export default connect(mapStateToProps, null)(Alert);

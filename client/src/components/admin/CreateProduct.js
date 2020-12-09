@@ -152,6 +152,7 @@ const handleSubmit = e => {
 CreateProduct.propTypes = {
    userDe:PropTypes.object,
    admin:PropTypes.object,
+   newProduct:PropTypes.object,
    createNewProduct:PropTypes.func.isRequired
 };
 

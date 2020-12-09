@@ -93,6 +93,7 @@ const handleSubmit = e => {
     e.preventDefault();
     if(item.size === ""){
       setAlert("Please choose your size","warning");
+      window.scrollTo(0,0);
     }else{
       addToCart(item, productDe._id);
       setShowModal(false);
@@ -104,7 +105,7 @@ const handleSubmit = e => {
     return (
         productDe ?
        <div className="container">     
-        <div className="product-details d-flex shadow p-3 mb-5 bg-white rounded">
+        <div className="product-details d-lg-flex shadow p-3 mb-5 bg-white rounded">
          <div className="row align-items-center">         
           <img className="details-img" src={productDe.image} alt="detaolsimg"/>           
          </div> 
@@ -216,11 +217,11 @@ const handleSubmit = e => {
          <div className="d-flex justify-content-between">
           <h2 style={{margin:"10px 15px"}}>REVIEWS</h2>
           {!token ?
-          <button type="button" className="btn btn-warning" style={{margin:"10px 15px"}} onClick={() => setAlert("Please login", "warning")}>
+          <button type="button" className="btn btn-warning btn-sm review-btn" onClick={() => setAlert("Please login", "warning")}>
            WRITE A REVIEW
           </button> 
           :
-          <button type="button" className="btn btn-warning" style={{margin:"10px 15px"}} data-toggle="modal" data-target="#add-review-modal">
+          <button type="button" className="btn btn-warning btn-sm review-btn" data-toggle="modal" data-target="#add-review-modal">
            WRITE A REVIEW
           </button>}
          </div>    

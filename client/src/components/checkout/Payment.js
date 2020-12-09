@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import CheckOutSteps from '../layout/CheckOutSteps';
 import { savePaymentMethod } from '../actions/cartActions';
 
-const Payment = (props) => {
-const [paymentMethod,setPaymentMethod] = useState("");
+const Payment = ({ savePaymentMethod, history }) => {
+const [paymentMethod, setPaymentMethod] = useState("");
 
 const handleSubmit = e => {
     e.preventDefault();
-    props.savePaymentMethod(paymentMethod);
-    props.history.push("/placeorder");
+    savePaymentMethod(paymentMethod);
+    history.push("/placeorder");
 }
     return (
         <div className="container">
@@ -23,7 +23,7 @@ const handleSubmit = e => {
           <div>
            <div className="select-method">Select method</div>
            <form className="payment" onSubmit={handleSubmit}>         
-            <input type="radio" className="payment" id="PayPal" name="paymentMethod" value="PayPal" onChange={(e) => setPaymentMethod(e.target.value)}/>
+            <input type="radio" className="payment" id="PayPal" name="paymentMethod" value="PayPal" onChange={e => setPaymentMethod(e.target.value)}/>
             <label className="ml-2" htmlFor="PayPal">PayPal or Credit Card</label> 
             <div>
              <input type="submit" className="btn btn-warning my-2" value="CONTINUE"/>
@@ -39,6 +39,6 @@ const handleSubmit = e => {
 
 Payment.propTypes = {
   savePaymentMethod:PropTypes.func.isRequired
-}
+};
 
-export default connect(null,{ savePaymentMethod })(Payment);
+export default connect(null, { savePaymentMethod })(Payment);

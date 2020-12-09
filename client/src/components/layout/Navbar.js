@@ -1,4 +1,4 @@
-import React,{ useState, useEffect } from 'react';
+import React,{ useState, useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loadUser,userLogout } from '../actions/userActions';
@@ -34,15 +34,15 @@ const handleLogout = () => {
 };
 
     return (
-       <div>   
+       <Fragment>   
         <nav className="navbar navbar-light">
-          <div>
+          <div className="mx-sm-0 mx-auto">
            <Link to="/" className="navbar navbar-brand">
              <FontAwesomeIcon className="basketballLogo mr-1" icon={['fas', 'basketball-ball']}/>
               HOOP CLUB
            </Link>
           </div>
-          <div>   
+          <div className="mx-sm-0 mx-auto">   
            <Link to="/cart" style={{position:"relative"}}>
             <FontAwesomeIcon className="carticon" icon={['fas', 'shopping-cart']}/>
             {cartItems.length > 0 ? <span className="num-in-cart"><span style={{position:"relative",bottom:"3px"}}>{cartItems.length}</span></span>
@@ -107,7 +107,7 @@ const handleLogout = () => {
             </Link>            
            </li>
          </ul> 
-       </div>   
+       </Fragment>   
 
     )
 }
@@ -119,7 +119,7 @@ Navbar.propTypes ={
   loadUser:PropTypes.func.isRequired,
   userLogout:PropTypes.func.isRequired,
   setAlert:PropTypes.func.isRequired
-}
+};
 
 
 const mapStateToProps = state => ({
@@ -128,4 +128,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps,{ loadUser,userLogout,setAlert })(Navbar);
+export default connect(mapStateToProps,{ loadUser ,userLogout, setAlert })(Navbar);

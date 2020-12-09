@@ -24,10 +24,10 @@ useEffect(() =>{
   getOrderDe(match.params.id);
   getAllProducts(); 
  };
-  console.log("FIRST EFFECT");
   // eslint-disable-next-line  
 },[])
 
+// Set up fake delivery date
 useEffect(() => {
 if(!orderDe) return;
  if(orderDe.isDelivered){
@@ -38,7 +38,6 @@ if(!orderDe) return;
   const day = date.getDate(); 
   setDeliverDay(`${year}-${month}-${day + dateToAdd}`);   
  };
- console.log("for devivery date")
 // eslint-disable-next-line
 },[orderDe])
 
@@ -77,30 +76,24 @@ if(!orderDe) return;
         console.log(item);
     };
   });
-  console.log("SECOND EFFECT");
 // eslint-disable-next-line  
 },[orderDe]);
 
 
 useEffect(() => {
-  console.log(arrIndex);
   if(!product) return; 
   // Looking fot specific stocks value by index, and set up for update
   product.products && orderDe && product.products.forEach(p => {
     if(orderDe.orderItems.length > num &&  p._id === orderDe.orderItems[num].product){
       p.countInStock[arrIndex[num]] = p.countInStock[arrIndex[num]] - orderDe.orderItems[num].qty;  
       num++
-      setData(preValue => [...preValue, {countInStock:p.countInStock, id:p._id}]);  
-      console.log("products forEach loop");  
+      setData(preValue => [...preValue, {countInStock:p.countInStock, id:p._id}]);    
      }   
   });
-console.log("THIRD EFFECT");
 // eslint-disable-next-line  
 },[arrIndex, product]);
 
 
-
-console.log(`conponent re-render`)
 const handleSubmit = (e) => { 
       e.preventDefault();     
       //  Update pay status
@@ -111,7 +104,7 @@ const handleSubmit = (e) => {
        // Set up fake delivery date 
        setTimeout(() => {
         updateOrder(match.params.id,{isDelivered:true});
-       },3000)  
+       }, 3000);  
 };    
 
 
